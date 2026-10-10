@@ -1,0 +1,18 @@
+# Environment and secrets
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Data and indexes (large or regenerable)
+data/*
+!data/manifest.md
+chroma_db/
+
+# OS / editor
+.DS_Store
+Thumbs.db
