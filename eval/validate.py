@@ -21,7 +21,7 @@ def load(path):
     return rows
 
 
-def section_text(file, anchor, max_lines=20):
+def section_text(file, anchor, max_lines=60):
     secs = list_sections(file)
     lines = (DOCS_ROOT / file).read_text(encoding="utf-8").splitlines()
     for i, (line_no, _level, a, _title) in enumerate(secs):
