@@ -6,7 +6,7 @@ from sentence_transformers import CrossEncoder
 from docpilot.retrieval import hybrid
 
 MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-CANDIDATES = 30  # how many hybrid chunks get reranked (untuned)
+CANDIDATES = 10  # how many hybrid chunks get reranked (untuned)
 
 _model = None
 
@@ -19,9 +19,11 @@ def _get_model():
 
 
 def search(query, k=5):
-    cands = hybrid.search(query, k=max(k, CANDIDATES))
-    if not cands:
+    allc = hybrid.search(query, k=max(k, CANDIDATES))
+    if not allc:
         return []
-    scores = _get_model().predict([(query, h.text) for h in cands])
-    ranked = sorted(zip(cands, scores), key=lambda p: p[1], reverse=True)
-    return [replace(h, score=float(s)) for h, s in ranked[:k]]
+    head, tail = allc[:CANDIDATES], allc[CANDIDATES:]
+    scores = _get_model().predict([(query, h.text) for h in head])
+    ranked = sorted(zip(head, scores), key=lambda p: p[1], reverse=True)
+    out = [replace(h, score=float(s)) for h, s in ranked] + tail
+    return out[:k]
