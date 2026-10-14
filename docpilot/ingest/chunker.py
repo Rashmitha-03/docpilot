@@ -25,7 +25,6 @@ def cap_tokens(piece: str, header: str, size: int, overlap: int) -> list[str]:
         out.extend(cap_tokens(p, header, size // 2, overlap))
     return out
 
-
 def clean(text: str) -> str:
     return MARKUP.sub("", text)
 
@@ -50,7 +49,6 @@ def split_words(body: str, size: int, overlap: int) -> list[str]:
             break
         start = end - overlap
     return pieces
-
 
 def chunk_doc(doc: Doc) -> list[Chunk]:
     chunks = []
@@ -78,7 +76,6 @@ def chunk_doc(doc: Doc) -> list[Chunk]:
                 )
             )
     return chunks
-
 
 if __name__ == "__main__":
     all_chunks = []
