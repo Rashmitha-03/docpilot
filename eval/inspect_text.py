@@ -16,6 +16,6 @@ for h in search(row["question"], k=30):
     shown += 1
     if shown > 5:
         break
-    body = h.text.replace("\n", " ")[:900]
+    body = h.text.replace("\n", " ")[:500]
     print(shown, "GOLD" if key in gold else "    ", h.file, "#" + (h.anchor or "-"))
     print("   ", body)
