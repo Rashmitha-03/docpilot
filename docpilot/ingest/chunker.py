@@ -1,6 +1,7 @@
 import re
 from dataclasses import dataclass
 
+from sentence_transformers import SentenceTransformer
 from docpilot.config import settings
 from docpilot.ingest.loader import Doc, load_docs
 from docpilot.ingest.sections import split_sections
@@ -9,9 +10,24 @@ WORD = re.compile(r"\S+")
 # Terminal demos contain colour markup like <font color="#4E9A06">...</font>.
 # It costs many tokens and carries no meaning, so we strip it before chunking.
 MARKUP = re.compile(r"</?(?:font|span|u|div)\b[^>]*>")
+MAX_TOKENS = 400  # starting guess; bge-small reads 512 max, minus header and special tokens
+_tok = SentenceTransformer(settings.embed_model).tokenizer
+
+def n_tokens(text: str) -> int:
+    return len(_tok.encode(text, add_special_tokens=False))
+
+def cap_tokens(piece: str, header: str, size: int, overlap: int) -> list[str]:
+    """Split a piece again (fewer words each time) until header + piece fits MAX_TOKENS."""
+    if n_tokens(header + "\n\n" + piece) <= MAX_TOKENS or size <= 10:
+        return [piece]
+    out = []
+    for p in split_words(piece, size // 2, min(overlap, size // 4)):
+        out.extend(cap_tokens(p, header, size // 2, overlap))
+    return out
+
+
 def clean(text: str) -> str:
     return MARKUP.sub("", text)
-
 
 @dataclass
 class Chunk:
@@ -20,7 +36,6 @@ class Chunk:
     anchor: str | None
     header: str  # e.g. "First Steps > Check it"
     text: str  # header + body piece: this is what gets embedded
-
 
 def split_words(body: str, size: int, overlap: int) -> list[str]:
     """Cut body into pieces of at most `size` words, sharing `overlap` words."""
@@ -49,7 +64,9 @@ def chunk_doc(doc: Doc) -> list[Chunk]:
         if not s.body:
             continue  # empty section: still part of the header path, but no chunk
         header = " > ".join(t for _, t in stack)
-        pieces = split_words(clean(s.body), settings.chunk_size, settings.chunk_overlap)
+        pieces = []
+        for p in split_words(clean(s.body), settings.chunk_size, settings.chunk_overlap):
+            pieces.extend(cap_tokens(p, header, settings.chunk_size, settings.chunk_overlap))
         for j, piece in enumerate(pieces):
             chunks.append(
                 Chunk(
