@@ -1,11 +1,15 @@
 import json
 from pathlib import Path
 
-from docpilot.retrieval.vector import search
+import importlib
+import sys
+
+RETRIEVER = sys.argv[1] if len(sys.argv) > 1 else "vector"
+search = importlib.import_module(f"docpilot.retrieval.{RETRIEVER}").search
 from eval.metrics import evaluate, reciprocal_rank
 
 DEV = Path("eval/dev.jsonl")  # DEV only. Test stays held out.
-OUT = Path("eval/results/vector_dev.json")
+OUT = Path(f"eval/results/{RETRIEVER}_dev.json")
 OVERFETCH = 30
 KS = (1, 3, 5, 10)
 
