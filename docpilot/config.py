@@ -14,8 +14,10 @@ class Settings:
     ollama_model: str = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
     embed_model: str = os.getenv("EMBED_MODEL", "BAAI/bge-small-en-v1.5")
     rerank_model: str = os.getenv("RERANK_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
-    chunk_size: int = int(os.getenv("CHUNK_SIZE", "800"))
-    chunk_overlap: int = int(os.getenv("CHUNK_OVERLAP", "100"))
+    # Unit: WORDS. bge-small reads 512 tokens max; this corpus runs ~2.08 tokens/word,
+    # so 180 words is about 375 tokens, leaving room for the header path.
+    chunk_size: int = int(os.getenv("CHUNK_SIZE", "180"))
+    chunk_overlap: int = int(os.getenv("CHUNK_OVERLAP", "30"))
     top_k: int = int(os.getenv("TOP_K", "5"))
     score_threshold: float = float(os.getenv("SCORE_THRESHOLD", "0.35"))
     data_dir: Path = ROOT / "data"
