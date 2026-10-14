@@ -12,8 +12,9 @@ SYSTEM = (
     "only a citation. "
     "3. A passage that says the same thing in different words still counts "
     "as support. Synonyms count.\n"
-    f"4. If the context does not contain the answer, reply with exactly: {REFUSAL}\n"
-    "Add nothing else to a refusal."
+    "4. If the question names a specific tool, service or feature and no passage "
+    "mentions it by name, the context does not contain the answer. "
+    f"If the context does not contain the answer, reply with exactly: {REFUSAL}\n"
 )
 
 
