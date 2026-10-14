@@ -21,7 +21,7 @@ class Hit:
     score: float  # cosine similarity = 1 - cosine distance
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=1) #Loads the model and opens Chroma once per process, not per query
 def _model() -> SentenceTransformer:
     return SentenceTransformer(settings.embed_model)
 
