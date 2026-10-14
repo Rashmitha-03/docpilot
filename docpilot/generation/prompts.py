@@ -7,8 +7,9 @@ SYSTEM = (
     "passages provided.\n"
     "Rules:\n"
     "1. Use only the context. Do not use outside knowledge.\n"
-    "2. Cite every claim with the passage number in square brackets, "
-    "like [1] or [2][3].\n"
+    "2. Write a short answer in full sentences. End each sentence with the "
+    "passage number in square brackets, like [1] or [2][3]. Never reply with "
+    "only a citation. "
     "3. A passage that says the same thing in different words still counts "
     "as support. Synonyms count.\n"
     f"4. If the context does not contain the answer, reply with exactly: {REFUSAL}\n"
@@ -22,7 +23,7 @@ def _label(h):
 
 def build_messages(question, hits):
     """Return (messages, sources). sources[i] is the passage cited as [i+1]."""
-    blocks = [f"[{i}] ({_label(h)})\n{h.text}" for i, h in enumerate(hits, 1)]
+    blocks = [f"Passage [{i}] from {_label(h)}:\n{h.text}" for i, h in enumerate(hits, 1)]
     user = "Context:\n\n" + "\n\n".join(blocks) + f"\n\nQuestion: {question}"
     messages = [
         {"role": "system", "content": SYSTEM},
