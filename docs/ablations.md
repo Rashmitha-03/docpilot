@@ -27,3 +27,38 @@ Compare rows on v3 labels only. Test set not used.
   chunks). Hypothesis, not verified.
 - Labels changed on dev only (dev-002, dev-021), based on evidence.
 - All settings (RRF_K, POOL, CANDIDATES, chunk size) are untuned guesses.
+
+
+# Answer-level results (dev, one pass, llama3.2:3b)
+
+30 dev rows (24 answerable, 6 unanswerable). Pipeline: cross-encoder gate
+(top-1 ce < 1.5 refuses), then hybrid top 5, then generation.
+The gate threshold and the prompt's named-tool rule were chosen using dev
+rows, so these numbers are optimistic. Test set not used.
+
+| Measure | Result |
+|---|---|
+| Unanswerable refused | 5 of 6 (4 by gate, 1 by model) |
+| Answerable wrongly refused | 2 of 24 (dev-016, dev-020, both by gate) |
+| Answered answerable with no citation | 1 of 22 (dev-002) |
+| Citations pointing outside the 5 sources | 0 of 22 |
+| Answers citing at least one gold section | 20 of 22 (lenient: any cited section) |
+
+## Latency (CPU, one pass)
+
+| Path | Median |
+|---|---|
+| Gate refusal (no LLM call) | about 1.1 s |
+| Generated answer | about 41 s |
+| All 30 rows | p50 34.1 s, p95 58.6 s |
+
+## Known failures and limits
+- dev-028 (Sentry): the model says the context does not mention it, then
+  answers anyway. Counted as answered.
+- Cosine and RRF top-1 scores do not separate answerable from unanswerable
+  questions; only the cross-encoder score partly does.
+- dev-003: the answer stated `@app.get()` although no retrieved passage
+  contained it, while its citation looked valid.
+- Faithfulness was not reliably measured: a llama3.2:3b judge flagged 8 of 22
+  answers, and 2 of the 3 flags checked by hand were false alarms.
+- Output is not exactly repeatable between runs.
