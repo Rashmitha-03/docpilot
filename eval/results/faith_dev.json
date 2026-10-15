@@ -1,0 +1,112 @@
+[
+  {
+    "id": "dev-001",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-002",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-003",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-004",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-005",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-006",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-007",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-008",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-009",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-010",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-011",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-012",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-013",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-017",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-018",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-019",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-021",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-022",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-023",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-024",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  },
+  {
+    "id": "dev-025",
+    "verdict": "UNSUPPORTED",
+    "raw": "UNSUPPORTED"
+  },
+  {
+    "id": "dev-026",
+    "verdict": "SUPPORTED",
+    "raw": "SUPPORTED"
+  }
+]
