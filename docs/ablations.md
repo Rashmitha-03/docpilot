@@ -62,3 +62,21 @@ rows, so these numbers are optimistic. Test set not used.
 - Faithfulness was not reliably measured: a llama3.2:3b judge flagged 8 of 22
   answers, and 2 of the 3 flags checked by hand were false alarms.
 - Output is not exactly repeatable between runs.
+
+## M9: Conversational follow-ups (query rewriting)
+
+**Problem.** A context-free follow-up ("What about making it required?") was refused by the gate with no sources, because it has no topic words.
+
+**Fix.** `generation/rewrite.py` rewrites the follow-up into a standalone question using the last 2 user questions, before retrieval. No history means no LLM call. `answer(question, history=None)` returns the rewritten text under `standalone`.
+
+**Prompt iterations (3B model).**
+1. Rules only: dropped "required" and copied the earlier question.
+2. Added two examples: fixed that, but the old topic leaked into a standalone question.
+3. Added a topic-change example and a "names its own topic" rule: both worked.
+
+**Checks (hand-picked, not a measured eval).**
+- Follow-up "What about making it required?": rewritten correctly, not refused, answer cites `query-params.md#required-query-parameters`.
+- Topic change, first turn, pronoun and shorthand cases: sensible output.
+- Chained follow-up (header, then cookies, then "delete it"): resolved to the older topic (headers). Known limit.
+
+**Limits.** History must contain standalone versions of past questions for chains to resolve; to be handled where history is stored (API/UI, M11/M12). Rewrite adds about 2 s per follow-up turn (warm model). Rewrite accuracy is not measured on a labelled set.
