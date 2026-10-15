@@ -1,0 +1,1228 @@
+[
+  {
+    "id": "dev-001",
+    "question": "Which URL shows the automatic Swagger UI documentation for my app?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "interactive-api-docs"
+      }
+    ],
+    "answer": "To view the automatic Swagger UI documentation for your app, you need to go to [http://127.0.0.1:8000/docs][1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/first-steps.md",
+        "anchor": "interactive-api-docs",
+        "header": "First Steps > Interactive API docs"
+      },
+      {
+        "n": 2,
+        "file": "index.md",
+        "anchor": "interactive-api-docs",
+        "header": "FastAPI > Example > Interactive API docs"
+      },
+      {
+        "n": 3,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "include-the-custom-docs-for-static-files",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs > Include the custom docs for static files"
+      },
+      {
+        "n": 4,
+        "file": "features.md",
+        "anchor": "automatic-docs",
+        "header": "Features > FastAPI features > Automatic docs"
+      },
+      {
+        "n": 5,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "include-the-custom-docs",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Custom CDN for JavaScript and CSS > Include the custom docs"
+      }
+    ],
+    "latency_ms": 4945
+  },
+  {
+    "id": "dev-002",
+    "question": "How do I set where my app object lives once in a config file, so tools like the VS Code extension can find it when my code is inside a backend folder?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "configure-the-app-entrypoint-in-pyproject-toml"
+      },
+      {
+        "file": "fastapi-cli.md",
+        "anchor": "configure-the-app-entrypoint-in-pyproject-toml"
+      },
+      {
+        "file": "tutorial/bigger-applications.md",
+        "anchor": "configure-the-entrypoint-in-pyproject-toml"
+      }
+    ],
+    "answer": "You can configure where your app object lives in a `pyproject.toml` file by setting the `entrypoint` in the `[tool.fastapi]` section. The format is `entrypoint = \"module:object\"`, where `module` is the name of the module that contains the app object, and `object` is the name of the object itself. For example, if your app object is in `app/main.py`, you would set it like this: \n\n```toml\n[tool.fastapi]\nentrypoint = \"app.main:app\"\n```\n\nThis tells the `fastapi` command to import the app object like this: \n\n```python\nfrom app.main import app\n```\n\nThis way, tools like the VS Code extension can find your app object even if it's inside a backend folder.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/bigger-applications.md",
+        "anchor": "configure-the-entrypoint-in-pyproject-toml",
+        "header": "Bigger Applications - Multiple Files > Configure the `entrypoint` in `pyproject.toml`"
+      },
+      {
+        "n": 2,
+        "file": "fastapi-cli.md",
+        "anchor": "configure-the-app-entrypoint-in-pyproject-toml",
+        "header": "FastAPI CLI > Configure the app `entrypoint` in `pyproject.toml`"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/first-steps.md",
+        "anchor": "configure-the-app-entrypoint-in-pyproject-toml",
+        "header": "First Steps > Configure the app `entrypoint` in `pyproject.toml`"
+      },
+      {
+        "n": 4,
+        "file": "advanced/settings.md",
+        "anchor": "creating-the-settings-only-once-with-lru-cache",
+        "header": "Settings and Environment Variables > Reading a `.env` file > Creating the `Settings` only once with `lru_cache`"
+      },
+      {
+        "n": 5,
+        "file": "fastapi-cli.md",
+        "anchor": "fastapi-dev-with-path-or-with-entrypoint-cli-option",
+        "header": "FastAPI CLI > Configure the app `entrypoint` in `pyproject.toml` > `fastapi dev` with path or with `--entrypoint` CLI option"
+      }
+    ],
+    "latency_ms": 58826
+  },
+  {
+    "id": "dev-003",
+    "question": "Which HTTP methods are normally used to create, read, update and delete data, and which decorator do I use for a read?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "operation"
+      },
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator"
+      }
+    ],
+    "answer": "The HTTP methods normally used to create, read, update, and delete data are `POST`, `GET`, `PUT`, and `DELETE`, respectively. To define a path operation for a read, you would use the `@app.get()` decorator [2].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/first-steps.md",
+        "anchor": "operation",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Operation"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/body-updates.md",
+        "anchor": "update-replacing-with-put",
+        "header": "Body - Updates > Update replacing with `PUT`"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/request-forms.md",
+        "anchor": "about-form-fields",
+        "header": "Form Data > About \"Form Fields\""
+      }
+    ],
+    "latency_ms": 44140
+  },
+  {
+    "id": "dev-004",
+    "question": "Can the schema FastAPI generates be used to automatically create code for mobile or frontend clients?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "what-is-openapi-for"
+      }
+    ],
+    "answer": "Yes, the schema FastAPI generates can be used to automatically create code for mobile or frontend clients, as it is based on the OpenAPI standard, which is a widely-used format for defining APIs. This means that you can use the OpenAPI schema to generate code for clients that communicate with your API, including frontend, mobile, or IoT applications. [1][2]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/first-steps.md",
+        "anchor": "what-is-openapi-for",
+        "header": "First Steps > OpenAPI > What is OpenAPI for"
+      },
+      {
+        "n": 2,
+        "file": "advanced/generate-clients.md",
+        "anchor": "benefits",
+        "header": "Generating SDKs > Benefits"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/first-steps.md",
+        "anchor": "openapi",
+        "header": "First Steps > OpenAPI"
+      },
+      {
+        "n": 4,
+        "file": "advanced/generate-clients.md",
+        "anchor": "api-docs",
+        "header": "Generating SDKs > Create a TypeScript SDK > API Docs"
+      },
+      {
+        "n": 5,
+        "file": "advanced/generate-clients.md",
+        "anchor": "using-the-sdk",
+        "header": "Generating SDKs > Create a TypeScript SDK > Using the SDK"
+      }
+    ],
+    "latency_ms": 32589
+  },
+  {
+    "id": "dev-005",
+    "question": "Can my path operation function be a normal function instead of async def?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/first-steps.md",
+        "anchor": "step-4-define-the-path-operation-function"
+      }
+    ],
+    "answer": "Yes, your path operation function can be a normal function instead of `async def`. In fact, according to passage [3], if you declare a path operation function with a normal `def` instead of `async def`, it will be run in an external threadpool that is then awaited, instead of being called directly. However, passage [3] also states that in FastAPI, the effect would be quite opposite to what you might be used to in other async frameworks, and that using `async def` is generally recommended unless your path operation functions use code that performs blocking I/O.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/first-steps.md",
+        "anchor": "step-4-define-the-path-operation-function",
+        "header": "First Steps > Recap, step by step > Step 4: define the **path operation function**"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/dependencies/index.md",
+        "anchor": "to-async-or-not-to-async",
+        "header": "Dependencies > To `async` or not to `async`"
+      },
+      {
+        "n": 3,
+        "file": "async.md",
+        "anchor": "path-operation-functions",
+        "header": "Concurrency and async / await > Very Technical Details > Path operation functions"
+      },
+      {
+        "n": 4,
+        "file": "async.md",
+        "anchor": "other-utility-functions",
+        "header": "Concurrency and async / await > Very Technical Details > Other utility functions"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/background-tasks.md",
+        "anchor": "create-a-task-function",
+        "header": "Background Tasks > Create a task function"
+      }
+    ],
+    "latency_ms": 45444
+  },
+  {
+    "id": "dev-006",
+    "question": "How do I load a machine learning model once before the app starts handling requests, and free it when the app stops?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/events.md",
+        "anchor": "lifespan"
+      }
+    ],
+    "answer": "To load a machine learning model once before the app starts handling requests, you can use the `lifespan` parameter of the `FastAPI` app, and a \"context manager\" to define the startup and shutdown logic. You create an async function `lifespan()` with `yield` to simulate the expensive startup operation of loading the model, and then unload the model right after the `yield`. This code will be executed before the application starts taking requests, during the startup, and after the application finishes handling requests, right before the shutdown. [1][2]\n\nThis approach allows you to load the model only once, when the application starts, and free it when the application stops, which can be useful for setting up resources that are shared among requests, or cleaning up afterwards. [3][5]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/events.md",
+        "anchor": "use-case",
+        "header": "Lifespan Events > Use Case"
+      },
+      {
+        "n": 2,
+        "file": "advanced/events.md",
+        "anchor": "lifespan",
+        "header": "Lifespan Events > Lifespan"
+      },
+      {
+        "n": 3,
+        "file": "async.md",
+        "anchor": "concurrency-parallelism-web-machine-learning",
+        "header": "Concurrency and async / await > Asynchronous Code > Concurrency + Parallelism: Web + Machine Learning"
+      },
+      {
+        "n": 4,
+        "file": "alternatives.md",
+        "anchor": "webargs",
+        "header": "Alternatives, Inspiration and Comparisons > Previous tools > [Webargs](https://webargs.readthedocs.io/en/latest/)"
+      },
+      {
+        "n": 5,
+        "file": "advanced/events.md",
+        "anchor": "lifespan-events",
+        "header": "Lifespan Events"
+      }
+    ],
+    "latency_ms": 55548
+  },
+  {
+    "id": "dev-007",
+    "question": "What status code does the middleware that checks the Host header return when a request fails validation?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/middleware.md",
+        "anchor": "trustedhostmiddleware"
+      }
+    ],
+    "answer": "When a request fails validation, the `TrustedHostMiddleware` returns a `400` response. [1]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/middleware.md",
+        "anchor": "trustedhostmiddleware",
+        "header": "Advanced Middleware > `TrustedHostMiddleware`"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/security/first-steps.md",
+        "anchor": "what-it-does",
+        "header": "Security - First Steps > What it does"
+      },
+      {
+        "n": 3,
+        "file": "advanced/security/http-basic-auth.md",
+        "anchor": "return-the-error",
+        "header": "HTTP Basic Auth > Check the username > Return the error"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/handling-errors.md",
+        "anchor": "handling-errors",
+        "header": "Handling Errors"
+      },
+      {
+        "n": 5,
+        "file": "advanced/additional-status-codes.md",
+        "anchor": "additional-status-codes_1",
+        "header": "Additional Status Codes > Additional status codes"
+      }
+    ],
+    "latency_ms": 36459
+  },
+  {
+    "id": "dev-008",
+    "question": "Why isn't hiding the API docs a real security measure, and how can I turn them off using an environment variable?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/conditional-openapi.md",
+        "anchor": "about-security-apis-and-docs"
+      },
+      {
+        "file": "how-to/conditional-openapi.md",
+        "anchor": "conditional-openapi-from-settings-and-env-vars"
+      }
+    ],
+    "answer": "Hiding the API docs is not a real security measure because it does not prevent security flaws in the code from existing, and it can actually make it more difficult to debug the API in production [1]. Instead, to disable the API docs, you can use environment variables to configure the application settings, such as secret keys, database credentials, and other sensitive information [2][3]. This allows you to control the visibility of the API docs based on specific use cases or environments, such as production [4].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/conditional-openapi.md",
+        "anchor": "about-security-apis-and-docs",
+        "header": "Conditional OpenAPI > About security, APIs, and docs"
+      },
+      {
+        "n": 2,
+        "file": "advanced/settings.md",
+        "anchor": "settings-and-environment-variables",
+        "header": "Settings and Environment Variables"
+      },
+      {
+        "n": 3,
+        "file": "environment-variables.md",
+        "anchor": "environment-variables",
+        "header": "Environment Variables"
+      },
+      {
+        "n": 4,
+        "file": "how-to/conditional-openapi.md",
+        "anchor": "about-security-apis-and-docs",
+        "header": "Conditional OpenAPI > About security, APIs, and docs"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/security/first-steps.md",
+        "anchor": "check-it",
+        "header": "Security - First Steps > Check it"
+      }
+    ],
+    "latency_ms": 40951
+  },
+  {
+    "id": "dev-009",
+    "question": "How do I change the color theme used for syntax highlighting in Swagger UI?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/configure-swagger-ui.md",
+        "anchor": "change-the-theme"
+      }
+    ],
+    "answer": "To change the color theme used for syntax highlighting in Swagger UI, you need to set the `syntaxHighlight.theme` configuration parameter when creating the `FastAPI()` app object or to the `get_swagger_ui_html()` function. For example, you could pass the following settings to `swagger_ui_parameters`: `{ \"syntaxHighlight\": { \"theme\": \"dark\" } }`. FastAPI converts the configurations to JSON to make them compatible with JavaScript, as that's what Swagger UI needs. [1][4]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/configure-swagger-ui.md",
+        "anchor": "change-the-theme",
+        "header": "Configure Swagger UI > Change the Theme"
+      },
+      {
+        "n": 2,
+        "file": "how-to/configure-swagger-ui.md",
+        "anchor": "disable-syntax-highlighting",
+        "header": "Configure Swagger UI > Disable Syntax Highlighting"
+      },
+      {
+        "n": 3,
+        "file": "how-to/configure-swagger-ui.md",
+        "anchor": "change-default-swagger-ui-parameters",
+        "header": "Configure Swagger UI > Change Default Swagger UI Parameters"
+      },
+      {
+        "n": 4,
+        "file": "how-to/configure-swagger-ui.md",
+        "anchor": "configure-swagger-ui",
+        "header": "Configure Swagger UI"
+      },
+      {
+        "n": 5,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "download-the-files",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs > Download the files"
+      }
+    ],
+    "latency_ms": 33970
+  },
+  {
+    "id": "dev-010",
+    "question": "Why might I not want to use multiple workers when running on Kubernetes?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/server-workers.md",
+        "anchor": "server-workers-uvicorn-with-workers"
+      }
+    ],
+    "answer": "When running on Kubernetes, you probably don't want to use multiple workers because you will probably want to run a single Uvicorn process per container instead [1]. This is because Kubernetes is a distributed container management system that can handle replication of containers at the cluster level, making it easier to manage distributed containers on multiple machines [4].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/server-workers.md",
+        "anchor": "server-workers-uvicorn-with-workers",
+        "header": "Server Workers - Uvicorn with Workers"
+      },
+      {
+        "n": 2,
+        "file": "deployment/server-workers.md",
+        "anchor": "server-workers-uvicorn-with-workers",
+        "header": "Server Workers - Uvicorn with Workers"
+      },
+      {
+        "n": 3,
+        "file": "deployment/server-workers.md",
+        "anchor": "recap",
+        "header": "Server Workers - Uvicorn with Workers > Recap"
+      },
+      {
+        "n": 4,
+        "file": "deployment/docker.md",
+        "anchor": "replication-number-of-processes",
+        "header": "FastAPI in Containers - Docker > Replication - Number of Processes"
+      },
+      {
+        "n": 5,
+        "file": "deployment/server-workers.md",
+        "anchor": "deployment-concepts",
+        "header": "Server Workers - Uvicorn with Workers > Deployment Concepts"
+      }
+    ],
+    "latency_ms": 34272
+  },
+  {
+    "id": "dev-011",
+    "question": "How can one server with a single IP address and port 443 serve HTTPS for several different domains with different certificates?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/https.md",
+        "anchor": "tls-with-sni-extension"
+      },
+      {
+        "file": "deployment/https.md",
+        "anchor": "multiple-applications"
+      }
+    ],
+    "answer": "To serve HTTPS for several different domains with different certificates on a single server with a single IP address and port 443, an extension to the TLS protocol called Server Name Indication (SNI) is used [1]. This SNI extension allows a single server to have multiple HTTPS certificates and serve multiple HTTPS domains/applications [1]. A single component running on the server, listening on the public IP address, must have all the HTTPS certificates in the server [1]. This component, known as the TLS Termination Proxy, handles the HTTPS and certificates for multiple domains, and then transmits the requests to the right application in each case [2]. The TLS Termination Proxy uses the SNI extension to check which certificate to use for each connection, based on the domain expected by the client [3].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/https.md",
+        "anchor": "about-https",
+        "header": "About HTTPS"
+      },
+      {
+        "n": 2,
+        "file": "deployment/https.md",
+        "anchor": "multiple-applications",
+        "header": "About HTTPS > HTTPS for Developers > Multiple Applications"
+      },
+      {
+        "n": 3,
+        "file": "deployment/https.md",
+        "anchor": "tls-with-sni-extension",
+        "header": "About HTTPS > HTTPS for Developers > TLS with SNI Extension"
+      },
+      {
+        "n": 4,
+        "file": "deployment/https.md",
+        "anchor": "about-https",
+        "header": "About HTTPS"
+      },
+      {
+        "n": 5,
+        "file": "deployment/https.md",
+        "anchor": "tls-handshake-start",
+        "header": "About HTTPS > HTTPS for Developers > TLS Handshake Start"
+      }
+    ],
+    "latency_ms": 56657
+  },
+  {
+    "id": "dev-012",
+    "question": "What is the default minimum response size, in bytes, below which responses are not gzip compressed?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/middleware.md",
+        "anchor": "gzipmiddleware"
+      }
+    ],
+    "answer": "The default minimum response size, in bytes, below which responses are not gzip compressed is 500 [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/middleware.md",
+        "anchor": "gzipmiddleware",
+        "header": "Advanced Middleware > `GZipMiddleware`"
+      },
+      {
+        "n": 2,
+        "file": "how-to/custom-request-and-route.md",
+        "anchor": "create-a-custom-gziprequest-class",
+        "header": "Custom Request and APIRoute class > Handling custom request body encodings > Create a custom `GzipRequest` class"
+      },
+      {
+        "n": 3,
+        "file": "advanced/custom-response.md",
+        "anchor": "default-response-class",
+        "header": "Custom Response - HTML, Stream, File, others > Default response class"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/response-model.md",
+        "anchor": "response-model-encoding-parameters",
+        "header": "Response Model - Return Type > Response Model encoding parameters"
+      },
+      {
+        "n": 5,
+        "file": "reference/responses.md",
+        "anchor": "",
+        "header": "Custom Response Classes - File, HTML, Redirect, Streaming, etc. > FastAPI Responses"
+      }
+    ],
+    "latency_ms": 33304
+  },
+  {
+    "id": "dev-013",
+    "question": "How long is a TLS certificate valid before it expires, and how can the renewal program prove it controls the domain?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/https.md",
+        "anchor": "certificate-renewal"
+      }
+    ],
+    "answer": "A TLS certificate is valid for about 3 months before it expires [1]. To prove it controls the domain, the renewal program needs to demonstrate ownership and control of the domain to the authority, such as Let's Encrypt, through various methods like modifying DNS records or running as a server on the public IP address associated with the domain [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/https.md",
+        "anchor": "certificate-renewal",
+        "header": "About HTTPS > HTTPS for Developers > Certificate Renewal"
+      },
+      {
+        "n": 2,
+        "file": "deployment/https.md",
+        "anchor": "certificate-renewal",
+        "header": "About HTTPS > HTTPS for Developers > Certificate Renewal"
+      },
+      {
+        "n": 3,
+        "file": "deployment/https.md",
+        "anchor": "tls-with-sni-extension",
+        "header": "About HTTPS > HTTPS for Developers > TLS with SNI Extension"
+      },
+      {
+        "n": 4,
+        "file": "deployment/concepts.md",
+        "anchor": "example-tools-for-https",
+        "header": "Deployments Concepts > Security - HTTPS > Example Tools for HTTPS"
+      },
+      {
+        "n": 5,
+        "file": "deployment/https.md",
+        "anchor": "about-https",
+        "header": "About HTTPS"
+      }
+    ],
+    "latency_ms": 54796
+  },
+  {
+    "id": "dev-014",
+    "question": "How do I limit each client to 100 requests per minute in FastAPI?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1515
+  },
+  {
+    "id": "dev-015",
+    "question": "How do I cache API responses in Redis so repeated requests are served faster?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1084
+  },
+  {
+    "id": "dev-016",
+    "question": "When a front server handles TLS, why does FastAPI redirect /items to an http:// address, and which CLI option makes it use the right scheme?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/behind-a-proxy.md",
+        "anchor": "enable-proxy-forwarded-headers"
+      },
+      {
+        "file": "advanced/behind-a-proxy.md",
+        "anchor": "redirects-with-https"
+      }
+    ],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1181
+  },
+  {
+    "id": "dev-017",
+    "question": "What status code does RedirectResponse use by default?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/custom-response.md",
+        "anchor": "redirectresponse"
+      }
+    ],
+    "answer": "RedirectResponse uses the 307 status code (Temporary Redirect) by default [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/custom-response.md",
+        "anchor": "redirectresponse",
+        "header": "Custom Response - HTML, Stream, File, others > Available responses > `RedirectResponse`"
+      },
+      {
+        "n": 2,
+        "file": "advanced/additional-status-codes.md",
+        "anchor": "additional-status-codes",
+        "header": "Additional Status Codes"
+      },
+      {
+        "n": 3,
+        "file": "advanced/response-change-status-code.md",
+        "anchor": "response-change-status-code",
+        "header": "Response - Change Status Code"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/path-operation-configuration.md",
+        "anchor": "response-status-code",
+        "header": "Path Operation Configuration > Response Status Code"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/response-status-code.md",
+        "anchor": "about-http-status-codes",
+        "header": "Response Status Code > About HTTP status codes"
+      }
+    ],
+    "latency_ms": 27108
+  },
+  {
+    "id": "dev-018",
+    "question": "Why does my app re-read the .env file on every request, and which decorator stops that?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/settings.md",
+        "anchor": "creating-the-settings-only-once-with-lru-cache"
+      }
+    ],
+    "answer": "FastAPI re-reads the .env file on every request because the `Settings` object is created every time it's called, as shown in Passage [1]. However, by using the `@lru_cache` decorator, the `Settings` object is created only once, the first time it's called, and then reused for subsequent requests, as shown in Passage [1]. This decorator stops the re-reading of the .env file on every request.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/settings.md",
+        "anchor": "creating-the-settings-only-once-with-lru-cache",
+        "header": "Settings and Environment Variables > Reading a `.env` file > Creating the `Settings` only once with `lru_cache`"
+      },
+      {
+        "n": 2,
+        "file": "advanced/settings.md",
+        "anchor": "reading-a-env-file",
+        "header": "Settings and Environment Variables > Reading a `.env` file"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      },
+      {
+        "n": 4,
+        "file": "advanced/settings.md",
+        "anchor": "the-env-file",
+        "header": "Settings and Environment Variables > Reading a `.env` file > The `.env` file"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      }
+    ],
+    "latency_ms": 39975
+  },
+  {
+    "id": "dev-019",
+    "question": "What exception is raised when a WebSocket client disconnects?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/websockets.md",
+        "anchor": "handling-disconnections-and-multiple-clients"
+      }
+    ],
+    "answer": "When a WebSocket client disconnects, a `WebSocketDisconnect` exception is raised, which can be caught and handled in your code [1][2].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/websockets.md",
+        "anchor": "handling-disconnections-and-multiple-clients",
+        "header": "WebSockets > Handling disconnections and multiple clients"
+      },
+      {
+        "n": 2,
+        "file": "reference/websockets.md",
+        "anchor": "",
+        "header": "WebSockets > WebSockets - additional classes"
+      },
+      {
+        "n": 3,
+        "file": "advanced/opentelemetry.md",
+        "anchor": "trace-websocket-connections",
+        "header": "OpenTelemetry > Customize telemetry > Trace WebSocket connections"
+      },
+      {
+        "n": 4,
+        "file": "reference/exceptions.md",
+        "anchor": "",
+        "header": "Exceptions - `HTTPException` and `WebSocketException`"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/handling-errors.md",
+        "anchor": "raise-an-httpexception-in-your-code",
+        "header": "Handling Errors > Use `HTTPException` > Raise an `HTTPException` in your code"
+      }
+    ],
+    "latency_ms": 32549
+  },
+  {
+    "id": "dev-020",
+    "question": "Why should the requirements file be copied into the image before the application code?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/docker.md",
+        "anchor": "docker-cache"
+      }
+    ],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1420
+  },
+  {
+    "id": "dev-021",
+    "question": "Which module gives me named constants for HTTP status codes, and who provides it?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/response-status-code.md",
+        "anchor": "shortcut-to-remember-the-names"
+      },
+      {
+        "file": "reference/status.md",
+        "anchor": ""
+      }
+    ],
+    "answer": "The `status` module from `fastapi` provides named constants for HTTP status codes, and it is provided directly by Starlette. [1]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "reference/status.md",
+        "anchor": "",
+        "header": "Status Codes"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/response-status-code.md",
+        "anchor": "about-http-status-codes",
+        "header": "Response Status Code > About HTTP status codes"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/response-status-code.md",
+        "anchor": "about-http-status-codes",
+        "header": "Response Status Code > About HTTP status codes"
+      },
+      {
+        "n": 4,
+        "file": "advanced/additional-status-codes.md",
+        "anchor": "additional-status-codes_1",
+        "header": "Additional Status Codes > Additional status codes"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/path-operation-configuration.md",
+        "anchor": "response-status-code",
+        "header": "Path Operation Configuration > Response Status Code"
+      }
+    ],
+    "latency_ms": 49682
+  },
+  {
+    "id": "dev-022",
+    "question": "If my code loads a 1 GB model and I run 4 workers, how much RAM do I need in total?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/concepts.md",
+        "anchor": "memory-per-process"
+      },
+      {
+        "file": "deployment/concepts.md",
+        "anchor": "server-memory"
+      }
+    ],
+    "answer": "If your code loads a 1 GB model and you run 4 workers, each process will consume 1 GB of RAM, so the total RAM needed will be 4 GB [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/concepts.md",
+        "anchor": "server-memory",
+        "header": "Deployments Concepts > Replication - Processes and Memory > Server Memory"
+      },
+      {
+        "n": 2,
+        "file": "deployment/concepts.md",
+        "anchor": "resource-utilization",
+        "header": "Deployments Concepts > Resource Utilization"
+      },
+      {
+        "n": 3,
+        "file": "deployment/concepts.md",
+        "anchor": "memory-per-process",
+        "header": "Deployments Concepts > Replication - Processes and Memory > Memory per Process"
+      },
+      {
+        "n": 4,
+        "file": "deployment/docker.md",
+        "anchor": "containers-with-multiple-processes-and-special-cases",
+        "header": "FastAPI in Containers - Docker > Replication - Number of Processes > Containers with Multiple Processes and Special Cases"
+      },
+      {
+        "n": 5,
+        "file": "deployment/server-workers.md",
+        "anchor": "server-workers-uvicorn-with-workers",
+        "header": "Server Workers - Uvicorn with Workers"
+      }
+    ],
+    "latency_ms": 45885
+  },
+  {
+    "id": "dev-023",
+    "question": "Why should database migrations run in a single process even when I start multiple workers?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/concepts.md",
+        "anchor": "previous-steps-before-starting"
+      }
+    ],
+    "answer": "Database migrations should run in a single process because if they were run by multiple processes, they would duplicate the work by running it in parallel, which could cause conflicts with each other, especially if the steps were something delicate like a database migration [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/concepts.md",
+        "anchor": "previous-steps-before-starting",
+        "header": "Deployments Concepts > Previous Steps Before Starting"
+      },
+      {
+        "n": 2,
+        "file": "deployment/concepts.md",
+        "anchor": "multiple-processes-workers",
+        "header": "Deployments Concepts > Replication - Processes and Memory > Multiple Processes - Workers"
+      },
+      {
+        "n": 3,
+        "file": "deployment/docker.md",
+        "anchor": "multiple-containers",
+        "header": "FastAPI in Containers - Docker > Previous Steps Before Starting and Containers > Multiple Containers"
+      },
+      {
+        "n": 4,
+        "file": "deployment/docker.md",
+        "anchor": "one-process-per-container",
+        "header": "FastAPI in Containers - Docker > Replication - Number of Processes > One Process per Container"
+      },
+      {
+        "n": 5,
+        "file": "deployment/server-workers.md",
+        "anchor": "server-workers-uvicorn-with-workers",
+        "header": "Server Workers - Uvicorn with Workers"
+      }
+    ],
+    "latency_ms": 58574
+  },
+  {
+    "id": "dev-024",
+    "question": "How do I pin FastAPI so patch releases like 0.112.2 are accepted but 0.113.0 is not?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/versions.md",
+        "anchor": "pin-your-fastapi-version"
+      }
+    ],
+    "answer": "To pin FastAPI so that patch releases like 0.112.2 are accepted but 0.113.0 is not, you can use the following syntax in your `requirements.txt` file:\n\n```txt\nfastapi[standard]>=0.112.0,<0.113.0\n```\n\nThis will specify that you want to use the versions `0.112.0` or above, but less than `0.113.0`, which includes patch releases like `0.112.2` but excludes `0.113.0`. [1]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/versions.md",
+        "anchor": "pin-your-fastapi-version",
+        "header": "About FastAPI versions > Pin your `fastapi` version"
+      },
+      {
+        "n": 2,
+        "file": "deployment/versions.md",
+        "anchor": "about-versions",
+        "header": "About FastAPI versions > About versions"
+      },
+      {
+        "n": 3,
+        "file": "deployment/versions.md",
+        "anchor": "about-pydantic",
+        "header": "About FastAPI versions > About Pydantic"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/schema-extra-example.md",
+        "anchor": "summary",
+        "header": "Declare Request Example Data > Technical Details > Summary"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/index.md",
+        "anchor": "install-fastapi",
+        "header": "Tutorial - User Guide > Install FastAPI"
+      }
+    ],
+    "latency_ms": 53912
+  },
+  {
+    "id": "dev-025",
+    "question": "What parameter makes FastAPI generate one single schema for both input and output models?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "do-not-separate-schemas"
+      }
+    ],
+    "answer": "To generate one single schema for both input and output models, you can disable the `separate_input_output_schemas` feature in FastAPI by passing the parameter `separate_input_output_schemas=False` [4].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "same-schema-for-input-and-output-models-in-docs",
+        "header": "Separate OpenAPI Schemas for Input and Output or Not > Do not Separate Schemas > Same Schema for Input and Output Models in Docs"
+      },
+      {
+        "n": 2,
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "model-for-output-in-docs",
+        "header": "Separate OpenAPI Schemas for Input and Output or Not > Pydantic Models for Input and Output > Model for Output in Docs"
+      },
+      {
+        "n": 3,
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "pydantic-models-for-input-and-output",
+        "header": "Separate OpenAPI Schemas for Input and Output or Not > Pydantic Models for Input and Output"
+      },
+      {
+        "n": 4,
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "do-not-separate-schemas",
+        "header": "Separate OpenAPI Schemas for Input and Output or Not > Do not Separate Schemas"
+      },
+      {
+        "n": 5,
+        "file": "how-to/separate-openapi-schemas.md",
+        "anchor": "model-for-input-and-output-in-docs",
+        "header": "Separate OpenAPI Schemas for Input and Output or Not > Pydantic Models for Input and Output > Model for Input and Output in Docs"
+      }
+    ],
+    "latency_ms": 28393
+  },
+  {
+    "id": "dev-026",
+    "question": "Which status code do FastAPI's security utilities return on failed authentication since version 0.122.0, and how do I revert to the old one?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/authentication-error-status-code.md",
+        "anchor": "use-old-403-authentication-error-status-codes"
+      }
+    ],
+    "answer": "Since version 0.122.0, FastAPI's security utilities return the HTTP status code `401 Unauthorized` on failed authentication, along with a sensible `WWW-Authenticate` header in the response, following the HTTP specifications. To revert to the old behavior, you can override the method `make_not_authenticated_error` in your security classes, for example, by creating a subclass of `HTTPBearer` that returns a `403 Forbidden` error instead of the default `401 Unauthorized` error. [1][2]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/authentication-error-status-code.md",
+        "anchor": "use-old-403-authentication-error-status-codes",
+        "header": "Use Old 403 Authentication Error Status Codes"
+      },
+      {
+        "n": 2,
+        "file": "deployment/versions.md",
+        "anchor": "pin-your-fastapi-version",
+        "header": "About FastAPI versions > Pin your `fastapi` version"
+      },
+      {
+        "n": 3,
+        "file": "advanced/additional-status-codes.md",
+        "anchor": "additional-status-codes_1",
+        "header": "Additional Status Codes > Additional status codes"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/security/index.md",
+        "anchor": "openapi",
+        "header": "Security > OpenAPI"
+      },
+      {
+        "n": 5,
+        "file": "advanced/response-change-status-code.md",
+        "anchor": "use-a-response-parameter",
+        "header": "Response - Change Status Code > Use a `Response` parameter"
+      }
+    ],
+    "latency_ms": 59951
+  },
+  {
+    "id": "dev-027",
+    "question": "How do I deploy my FastAPI app to AWS Lambda?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "model",
+    "sources": [
+      {
+        "n": 1,
+        "file": "index.md",
+        "anchor": "deploy-your-app-optional",
+        "header": "FastAPI > Example upgrade > Deploy your app (optional)"
+      },
+      {
+        "n": 2,
+        "file": "deployment/fastapicloud.md",
+        "anchor": "fastapi-cloud",
+        "header": "FastAPI Cloud"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/first-steps.md",
+        "anchor": "deploy-your-app-optional",
+        "header": "First Steps > Deploy your app (optional)"
+      },
+      {
+        "n": 4,
+        "file": "index.md",
+        "anchor": "deploy-to-other-cloud-providers",
+        "header": "FastAPI > Example upgrade > Deploy your app (optional) > Deploy to other cloud providers"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/first-steps.md",
+        "anchor": "step-6-deploy-it",
+        "header": "First Steps > Recap, step by step > Step 6: Deploy it"
+      }
+    ],
+    "latency_ms": 21952
+  },
+  {
+    "id": "dev-028",
+    "question": "How do I send error reports to Sentry from my FastAPI app?",
+    "answerable": false,
+    "gold": [],
+    "answer": "To send error reports to Sentry from your FastAPI app, you would need to use Sentry's client library, which is not mentioned in the provided context passages. I could not find this in the FastAPI docs.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/opentelemetry.md",
+        "anchor": "run-the-app",
+        "header": "OpenTelemetry > Run the app"
+      },
+      {
+        "n": 2,
+        "file": "advanced/opentelemetry.md",
+        "anchor": "inspect-errors",
+        "header": "OpenTelemetry > Customize telemetry > Inspect errors"
+      },
+      {
+        "n": 3,
+        "file": "deployment/docker.md",
+        "anchor": "use-cmd-exec-form",
+        "header": "FastAPI in Containers - Docker > Build a Docker Image for FastAPI > Dockerfile > Use `CMD` - Exec Form"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/stream-json-lines.md",
+        "anchor": "server-sent-events-sse",
+        "header": "Stream JSON Lines > Server-Sent Events (SSE)"
+      },
+      {
+        "n": 5,
+        "file": "deployment/server-workers.md",
+        "anchor": "containers-and-docker",
+        "header": "Server Workers - Uvicorn with Workers > Containers and Docker"
+      }
+    ],
+    "latency_ms": 29461
+  },
+  {
+    "id": "dev-029",
+    "question": "How do I set up Alembic migrations step by step for my FastAPI database?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1096
+  },
+  {
+    "id": "dev-030",
+    "question": "How do I send an email through an SMTP server from a FastAPI endpoint?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 840
+  }
+]
