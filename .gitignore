@@ -1,12 +1,14 @@
 # Environment and secrets
 venv/
 .env
+err.txt
 
 # Python
 __pycache__/
 *.pyc
 .pytest_cache/
 .ruff_cache/
+
 
 # Data and indexes (large or regenerable)
 data/*
