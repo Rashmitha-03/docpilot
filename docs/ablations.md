@@ -80,3 +80,5 @@ rows, so these numbers are optimistic. Test set not used.
 - Chained follow-up (header, then cookies, then "delete it"): resolved to the older topic (headers). Known limit.
 
 **Limits.** History must contain standalone versions of past questions for chains to resolve; to be handled where history is stored (API/UI, M11/M12). Rewrite adds about 2 s per follow-up turn (warm model). Rewrite accuracy is not measured on a labelled set.
+
+**Generation latency (measured).** On a Ryzen 5 5500U (CPU only), llama3.2:3b reads prompts at about 34 to 43 tokens/s (about 19 s for a typical 800-token prompt; 1,332 tokens took 39 s cold) and writes at about 8 to 10 tokens/s. A fresh query therefore takes about 30 to 35 s warm, plus about 12 s if the model must reload. Not investigated: memory pressure. Accepted as a hardware limit; the live demo would use a hosted API to avoid it.
