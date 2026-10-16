@@ -21,7 +21,7 @@ Follow-up questions ("What about making it required?") are first rewritten into 
 
 FastAPI docs, commit `f5c6e9b`: 155 files, 1,372 chunks. See `data/manifest.md`.
 
-## Results (DEV set, 48 gold rows; hand-written labels)
+## Results (DEV set, 30 questions; hand-written labels)
 
 Retrieval, with k counted in distinct sections:
 
