@@ -70,7 +70,9 @@ def reply_node(s: State) -> State:
     return {"answer": out, "refused_by": "model" if out == REFUSAL else "",
             "sources": sources}
 
-
+def verify_node(s: State) -> State:
+    flags = verify(s["answer"], s["sources"], s["decision"] != "answer" or s["refused_by"] == "model")
+    return {"verify": flags}
 
 def after_route(s: State) -> str:
     return "finish" if s["route"] == "chitchat" else "retrieve"
