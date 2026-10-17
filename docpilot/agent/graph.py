@@ -70,9 +70,11 @@ def reply_node(s: State) -> State:
     return {"answer": out, "refused_by": "model" if out == REFUSAL else "",
             "sources": sources}
 
-def verify_node(s: State) -> State:
-    flags = verify(s["answer"], s["sources"], s["decision"] != "answer" or s["refused_by"] == "model")
-    return {"verify": flags}
+
+def check_node(s: State) -> State:
+    skip = s["decision"] != "answer" or s["refused_by"] == "model"
+    return {"verify": verify(s["answer"], s["sources"], skip)}
+
 
 def after_route(s: State) -> str:
     return "finish" if s["route"] == "chitchat" else "retrieve"
@@ -89,13 +91,14 @@ g.add_node("grade", grade_node)
 g.add_node("retry", retry_node)
 g.add_node("finish", finish_node)
 g.add_node("reply", reply_node)
-g.add_node("verify", verify_node)
+g.add_node("check", check_node)
 g.add_edge(START, "route")
 g.add_conditional_edges("route", after_route, {"finish": "finish", "retrieve": "retrieve"})
 g.add_edge("retrieve", "grade")
 g.add_conditional_edges("grade", after_grade, {"retry": "retry", "finish": "finish"})
 g.add_edge("retry", "finish")
-g.add_edge("reply", "verify")
-g.add_edge("verify", END)
+g.add_edge("finish", "reply")
+g.add_edge("reply", "check")
+g.add_edge("check", END)
 
 graph = g.compile()
