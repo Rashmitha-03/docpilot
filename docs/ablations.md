@@ -82,3 +82,19 @@ rows, so these numbers are optimistic. Test set not used.
 **Limits.** History must contain standalone versions of past questions for chains to resolve; to be handled where history is stored (API/UI, M11/M12). Rewrite adds about 2 s per follow-up turn (warm model). Rewrite accuracy is not measured on a labelled set.
 
 **Generation latency (measured).** On a Ryzen 5 5500U (CPU only), llama3.2:3b reads prompts at about 34 to 43 tokens/s (about 19 s for a typical 800-token prompt; 1,332 tokens took 39 s cold) and writes at about 8 to 10 tokens/s. A fresh query therefore takes about 30 to 35 s warm, plus about 12 s if the model must reload. Not investigated: memory pressure. Accepted as a hardware limit; the live demo would use a hosted API to avoid it.
+
+## M10 pre-check: where the gate fails (dev, 30 questions, untuned)
+
+Top-1 cross-encoder score per question, gate at 1.5.
+
+| Group | Top-1 scores |
+|---|---|
+| Unanswerable (6) | -3.716, -3.290, -0.494, 1.345 (dev-029), 1.799 (dev-028), 5.792 (dev-027) |
+| Answerable, below gate (2) | 0.959 (dev-016), 1.046 (dev-020) |
+| Answerable, above gate (22) | 1.762 to 8.932 |
+
+- Both wrongly refused answerable questions are gate failures, not retrieval failures. dev-020: the gold section was top-1 but scored 1.046. dev-016: both gold sections were in the hybrid top 2, but the cross-encoder ranked a neighbouring non-gold section first (0.959).
+- Grey zone 0.9 to 1.5 holds 2 answerable and 1 unanswerable question (dev-029, 1.345). Lowering the threshold would trade one wrong refusal for one wrong answer; not done.
+- dev-027 (5.792) and dev-028 (1.799) are unanswerable but pass the gate. Only the model's own refusal can catch them.
+- Both wrong refusals are first-turn questions, so M9 rewriting cannot help them.
+
