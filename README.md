@@ -2,7 +2,7 @@
 
 A citation-first Q&A assistant over the FastAPI documentation. It answers with references to the exact doc file and section, and refuses when the docs don't cover the question. Everything runs locally and for free (CPU only, Ollama).
 
-> **Status: work in progress.** Retrieval, grounded generation, answer-level evaluation and follow-up handling are done. The agentic layer, API, UI, CI and a live demo are not built yet. Results below are on the **dev set only**; the held-out test set has not been run.
+> **Status: work in progress.** Retrieval, grounded generation, answer-level evaluation and follow-up handling are done. The agentic layer is built and evaluated on dev (small, anecdotal effect: 1 question of 24). The API, UI, CI and a live demo are not built yet. Results below are on the **dev set only**; the held-out test set has not been run.
 
 ## How it works
 
@@ -54,13 +54,13 @@ Answer level (30 dev questions, one pass):
 
 - **Eval set before system.** Labels were written first, with a dev/test split, so tuning cannot leak into reported results.
 - **Hybrid over vector-only.** BM25 catches exact identifiers the embeddings miss. Measured gain at recall@1 and MRR; small eval set, so differences of a few rows are not conclusive.
-- **Cross-encoder as a gate, not a ranker.** Measured: it did not help ranking, but its top score separates answerable from unanswerable questions better than cosine or RRF scores.
+- **Cross-encoder as a gate, not a ranker.** Measured: it did not help ranking, but its top-1 score works as a refusal gate (threshold 1.5, chosen by eye on dev). On dev it catches 4 of 6 unanswerable questions; scores overlap, so it cannot catch topic-matching ones. I did not compare it against cosine or RRF scores as a gate.
 - **Query rewriting for follow-ups.** Without it, a follow-up with no topic words is refused by the gate. Rewriting adds about 2 s per follow-up turn.
 - **LLM-as-judge dropped.** The 3B judge was too noisy to trust (see `docs/ablations.md`).
 
 ## Limitations
 
-- Generation takes about 41 s per answer on CPU; cause not yet investigated.
+- Generation takes about 35 s per answer on CPU (p50 on dev). Measured: prompt reading is about 34 to 43 tokens/s and writing about 8 to 10 tokens/s, plus about 12 s model load; accepted as a CPU limitation.
 - The 3B model sometimes answers from outside the retrieved passages or produces invalid code; formatting slips ("declaringthe", glued citations).
 - The refusal threshold is untuned; near-coverage questions can be wrongly refused or wrongly answered.
 - Rewrite quality is checked on a few hand-picked cases, not a labelled set. Chained follow-ups can resolve to the older topic.
@@ -95,7 +95,9 @@ docs/       ablations.md (full tables, failures, iterations)
 tests/      test_metrics.py
 data/       manifest.md
 ```
+## Design decisions
+- **Agentic layer: small effect.** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
 
 ## Roadmap
 
-Agentic layer (router, grader, retry cap), FastAPI service with streaming, Streamlit UI, tests and CI, live demo, final test-set run.
+FastAPI service with streaming, Streamlit UI, tests and CI, live demo, final test-set run.
