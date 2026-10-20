@@ -2,7 +2,7 @@
 
 A citation-first Q&A assistant over the FastAPI documentation. It answers with references to the exact doc file and section, and refuses when the docs don't cover the question. Everything runs locally and for free (CPU only, Ollama).
 
-> **Status: work in progress.** Retrieval, grounded generation, answer-level evaluation and follow-up handling are done. The agentic layer is built and evaluated on dev (small, anecdotal effect: 1 question of 24). The API, UI, CI and a live demo are not built yet. Results below are on the **dev set only**; the held-out test set has not been run.
+> **Status: work in progress.** Retrieval, grounded generation, answer-level evaluation and follow-up handling are done. The agentic layer is built and evaluated on dev (small, anecdotal effect: 1 question of 24). The API, UI, CI and a live demo are not built yet. Dev results below are optimistic (tuned on dev); the held-out test set was run once (see "Test results")..
 
 ## How it works
 
@@ -48,7 +48,7 @@ Answer level (30 dev questions, one pass):
 | Answers citing at least one gold section | 20 of 22 (lenient) |
 | Latency | p50 34.1 s, p95 58.6 s (gate refusal about 1.1 s) |
 
-**Caveat:** the refusal threshold and prompt rules were tuned by eye on the dev set, so these answer-level numbers are optimistic. The test set is held out and will be run once, at the end.
+**Caveat:** the refusal threshold and prompt rules were tuned by eye on the dev set, so these answer-level numbers are optimistic. The test set was held out and run once; see "Test results".
 
 ## Design decisions
 
@@ -97,6 +97,13 @@ data/       manifest.md
 ```
 ## Design decisions
 - **Agentic layer: small effect.** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
+
+## Test results
+
+Held-out test set, one pass, config frozen beforehand: 14 answerable and 4 unanswerable questions. Counts are descriptive only.
+- Retrieval (hybrid): recall@1 0.607, recall@5 0.750, recall@10 0.893, MRR 0.736 (dev: 0.743, 0.979, 0.979, 0.927). Dev was tuned on, so it overstates.
+- Refusal: 4 of 4 unanswerable refused; 1 of 14 answerable wrongly refused (test-001, whose gold section ranked about 19th).
+- Citations: 0 outside the sources; gold section cited in 11 of 14 answers.
 
 ## Roadmap
 
