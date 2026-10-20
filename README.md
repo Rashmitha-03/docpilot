@@ -108,3 +108,17 @@ Held-out test set, one pass, config frozen beforehand: 14 answerable and 4 unans
 ## Roadmap
 
 FastAPI service with streaming, Streamlit UI, tests and CI, live demo, final test-set run.
+
+## API
+
+Run from the repo root (venv active):
+
+    python -m uvicorn docpilot.api.main:app --port 8000
+
+- `GET /health` returns `{"status": "ok"}`.
+- `POST /ask` takes `{"question", "mode", "history"}` and returns the full answer. `mode` is `naive` (default) or `agent`. `history` is used only by the naive path.
+- `POST /ask/stream` streams the naive path as Server-Sent Events: one `meta` event (sources, standalone question), then `token` events, then `done`.
+
+API limitations:
+- On the stream, `meta` is sent before generation, so a refusal by the model arrives with `refused_by: null`. Clients can detect it by comparing the text to the refusal sentence. `/ask` sets `refused_by: "model"` correctly.
+- Models load on the first request, so the first call is slow (about 12 s for model load, then about 35 s per answer on CPU).
