@@ -1,0 +1,716 @@
+[
+  {
+    "id": "test-001",
+    "question": "How can I run an existing Flask app inside my FastAPI app, and which extra package do I need?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/wsgi.md",
+        "anchor": "using-wsgimiddleware"
+      }
+    ],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1223
+  },
+  {
+    "id": "test-002",
+    "question": "How do I attach a completely independent second app under a path prefix like /subapi?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/sub-applications.md",
+        "anchor": "mount-the-sub-application"
+      }
+    ],
+    "answer": "To attach a completely independent second app under a path prefix like /subapi, you need to use the `mount` function provided by FastAPI. This function allows you to add a completely independent application in a specific path, that then takes care of handling everything under that path, with the path operations declared in that sub-application. [2][3][5]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/behind-a-proxy.md",
+        "anchor": "proxy-with-a-stripped-path-prefix",
+        "header": "Behind a Proxy > Proxy with a stripped path prefix"
+      },
+      {
+        "n": 2,
+        "file": "advanced/sub-applications.md",
+        "anchor": "mounting-a-fastapi-application",
+        "header": "Sub Applications - Mounts > Mounting a **FastAPI** application"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/static-files.md",
+        "anchor": "what-is-mounting",
+        "header": "Static Files > Use `StaticFiles` > What is \"Mounting\""
+      },
+      {
+        "n": 4,
+        "file": "advanced/sub-applications.md",
+        "anchor": "check-the-automatic-api-docs",
+        "header": "Sub Applications - Mounts > Mounting a **FastAPI** application > Check the automatic API docs"
+      },
+      {
+        "n": 5,
+        "file": "advanced/sub-applications.md",
+        "anchor": "sub-applications-mounts",
+        "header": "Sub Applications - Mounts"
+      }
+    ],
+    "latency_ms": 33655
+  },
+  {
+    "id": "test-003",
+    "question": "What prefix is suggested for custom proprietary response headers?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/response-headers.md",
+        "anchor": "custom-headers"
+      }
+    ],
+    "answer": "For custom proprietary response headers, it is suggested to use the `X-` prefix [1]. This allows clients in browsers to be able to see the custom headers.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/response-headers.md",
+        "anchor": "custom-headers",
+        "header": "Response Headers > Custom Headers"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/bigger-applications.md",
+        "anchor": "include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies",
+        "header": "Bigger Applications - Multiple Files > The main `FastAPI` > Include an `APIRouter` with a custom `prefix`, `tags`, `responses`, and `dependencies`"
+      },
+      {
+        "n": 3,
+        "file": "reference/responses.md",
+        "anchor": "",
+        "header": "Custom Response Classes - File, HTML, Redirect, Streaming, etc. > Starlette Responses"
+      },
+      {
+        "n": 4,
+        "file": "advanced/custom-response.md",
+        "anchor": "response",
+        "header": "Custom Response - HTML, Stream, File, others > Available responses > `Response`"
+      },
+      {
+        "n": 5,
+        "file": "advanced/custom-response.md",
+        "anchor": "fileresponse",
+        "header": "Custom Response - HTML, Stream, File, others > Available responses > `FileResponse`"
+      }
+    ],
+    "latency_ms": 30571
+  },
+  {
+    "id": "test-004",
+    "question": "How can I stop my tests from calling a paid external login provider by swapping in a fake user?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/testing-dependencies.md",
+        "anchor": "use-cases-external-service"
+      },
+      {
+        "file": "advanced/testing-dependencies.md",
+        "anchor": "use-the-app-dependency-overrides-attribute"
+      }
+    ],
+    "answer": "You can override the dependency that calls the external provider and use a custom dependency that returns a mock user, only for your tests. This way, you can test the external provider once, but not necessarily call it for every test that runs. [1] \n\nAdditionally, you can use the `TestClient` to send requests to your FastAPI application in your tests, and you can pass data to the backend using various parameters such as `json`, `data`, `headers`, and `cookies`. [2] \n\nTo call asynchronous functions apart from sending requests to your FastAPI application in your tests, you can use the same `await` syntax as you would in your code. [3] \n\nHowever, when it comes to testing security features like HTTP Basic Auth, you should be aware of timing attacks and take measures to prevent them. [4] \n\nIn this case, you can use a fake user to swap in for the paid external login provider, and then test your application with that fake user. [5]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "advanced/testing-dependencies.md",
+        "anchor": "use-cases-external-service",
+        "header": "Testing Dependencies with Overrides > Overriding dependencies during testing > Use cases: external service"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/testing.md",
+        "anchor": "extended-testing-file",
+        "header": "Testing > Testing: extended example > Extended testing file"
+      },
+      {
+        "n": 3,
+        "file": "advanced/async-tests.md",
+        "anchor": "other-asynchronous-function-calls",
+        "header": "Async Tests > Other Asynchronous Function Calls"
+      },
+      {
+        "n": 4,
+        "file": "advanced/security/http-basic-auth.md",
+        "anchor": "a-professional-attack",
+        "header": "HTTP Basic Auth > Check the username > Timing Attacks > A \"professional\" attack"
+      },
+      {
+        "n": 5,
+        "file": "fastapi-people.md",
+        "anchor": "",
+        "header": "FastAPI People > FastAPI Experts"
+      }
+    ],
+    "latency_ms": 48334
+  },
+  {
+    "id": "test-005",
+    "question": "Which GraphQL library does the FastAPI documentation recommend, and why?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/graphql.md",
+        "anchor": "graphql-with-strawberry"
+      }
+    ],
+    "answer": "The FastAPI documentation recommends using Strawberry as the GraphQL library, as it has the design closest to FastAPI's design and is based on type annotations. [2] This is because Strawberry's design is more aligned with FastAPI's, making it easier to integrate and use with the framework. [2]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/graphql.md",
+        "anchor": "graphql",
+        "header": "GraphQL"
+      },
+      {
+        "n": 2,
+        "file": "how-to/graphql.md",
+        "anchor": "graphql-with-strawberry",
+        "header": "GraphQL > GraphQL with Strawberry"
+      },
+      {
+        "n": 3,
+        "file": "how-to/graphql.md",
+        "anchor": "graphql-libraries",
+        "header": "GraphQL > GraphQL Libraries"
+      },
+      {
+        "n": 4,
+        "file": "alternatives.md",
+        "anchor": "pydantic",
+        "header": "Alternatives, Inspiration and Comparisons > Used by **FastAPI** > [Pydantic](https://pydantic.dev/docs/)"
+      },
+      {
+        "n": 5,
+        "file": "how-to/graphql.md",
+        "anchor": "older-graphqlapp-from-starlette",
+        "header": "GraphQL > Older `GraphQLApp` from Starlette"
+      }
+    ],
+    "latency_ms": 32780
+  },
+  {
+    "id": "test-006",
+    "question": "How can I make the docs pages work offline by serving the Swagger JavaScript and CSS files from my own app?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "self-hosting-javascript-and-css-for-docs"
+      },
+      {
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "serve-the-static-files"
+      }
+    ],
+    "answer": "To make the docs pages work offline, you need to serve the Swagger JavaScript and CSS files from your own app. This can be done by setting the `swagger_js_url` and `swagger_css_url` attributes in the OpenAPI URL, which point to the URLs of the files hosted on your own server. \n\nFor example, you can set `swagger_js_url` to `\"/static/swagger-ui-bundle.js\"` and `swagger_css_url` to `\"/static/swagger-ui.css\"`. This way, when the Swagger UI is loaded, it will fetch the JavaScript and CSS files from your own server, allowing the docs pages to work offline. \n\nAdditionally, you can also set the `swagger_ui_redirect_url` attribute to a URL that points to the Swagger UI, and configure the OAuth2 redirect URL to point to the same URL, so that the Swagger UI can authenticate and authorize correctly even when offline.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "include-the-custom-docs-for-static-files",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs > Include the custom docs for static files"
+      },
+      {
+        "n": 2,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "include-the-custom-docs-for-static-files",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs > Include the custom docs for static files"
+      },
+      {
+        "n": 3,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "download-the-files",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs > Download the files"
+      },
+      {
+        "n": 4,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "custom-docs-ui-static-assets-self-hosting",
+        "header": "Custom Docs UI Static Assets (Self-Hosting)"
+      },
+      {
+        "n": 5,
+        "file": "how-to/custom-docs-ui-assets.md",
+        "anchor": "self-hosting-javascript-and-css-for-docs",
+        "header": "Custom Docs UI Static Assets (Self-Hosting) > Self-hosting JavaScript and CSS for docs"
+      }
+    ],
+    "latency_ms": 45975
+  },
+  {
+    "id": "test-007",
+    "question": "How do I avoid regenerating the OpenAPI schema every time someone opens the docs?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "how-to/extending-openapi.md",
+        "anchor": "cache-the-openapi-schema"
+      }
+    ],
+    "answer": "You can avoid regenerating the OpenAPI schema every time someone opens the docs by using the `.openapi_schema` property as a cache, as mentioned in passage [1]. This way, the schema will be generated only once and then reused for subsequent requests.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "how-to/extending-openapi.md",
+        "anchor": "cache-the-openapi-schema",
+        "header": "Extending OpenAPI > Overriding the defaults > Cache the OpenAPI schema"
+      },
+      {
+        "n": 2,
+        "file": "how-to/extending-openapi.md",
+        "anchor": "extending-openapi",
+        "header": "Extending OpenAPI"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/metadata.md",
+        "anchor": "openapi-url",
+        "header": "Metadata and Docs URLs > OpenAPI URL"
+      },
+      {
+        "n": 4,
+        "file": "how-to/general.md",
+        "anchor": "openapi-metadata-docs",
+        "header": "General - How To - Recipes > OpenAPI Metadata - Docs"
+      },
+      {
+        "n": 5,
+        "file": "how-to/extending-openapi.md",
+        "anchor": "generate-the-openapi-schema",
+        "header": "Extending OpenAPI > Overriding the defaults > Generate the OpenAPI schema"
+      }
+    ],
+    "latency_ms": 19293
+  },
+  {
+    "id": "test-008",
+    "question": "How do I get the raw request object in a path operation function, and does FastAPI validate data I read from it?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "advanced/using-request-directly.md",
+        "anchor": "details-about-the-request-object"
+      },
+      {
+        "file": "advanced/using-request-directly.md",
+        "anchor": "use-the-request-object-directly"
+      }
+    ],
+    "answer": "To get the raw request object in a path operation function, you can declare a parameter with the type `Request` and then access the raw request object directly. This is done by declaring a parameter with the type `Request` in the path operation function or dependency. [1][2]\n\nFastAPI validates data read from the request object, but the validation is done by Pydantic models, not by the request object itself. This means that if you read data from the request object and try to use it in a Pydantic model, FastAPI will validate it against the model's schema. However, if you read data from the request object and try to use it directly, you will need to handle the validation yourself. [3]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "reference/request.md",
+        "anchor": "",
+        "header": "`Request` class"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      },
+      {
+        "n": 3,
+        "file": "advanced/using-request-directly.md",
+        "anchor": "use-the-request-object-directly",
+        "header": "Using the Request Directly > Use the `Request` object directly"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/first-steps.md",
+        "anchor": "define-a-path-operation-decorator",
+        "header": "First Steps > Recap, step by step > Step 3: create a *path operation* > Define a *path operation decorator*"
+      },
+      {
+        "n": 5,
+        "file": "advanced/path-operation-advanced-configuration.md",
+        "anchor": "custom-openapi-path-operation-schema",
+        "header": "Path Operation Advanced Configuration > OpenAPI Extra > Custom OpenAPI *path operation* schema"
+      }
+    ],
+    "latency_ms": 254223
+  },
+  {
+    "id": "test-009",
+    "question": "Why is UploadFile better than declaring the parameter as bytes for large uploads?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/request-files.md",
+        "anchor": "file-parameters-with-uploadfile"
+      }
+    ],
+    "answer": "Using `UploadFile` is better than declaring a parameter as `bytes` for large uploads because it stores the file in memory up to a maximum size limit, and after passing this limit, it will be stored on disk, thus not consuming all the memory [1]. This means that it can handle large files like images, videos, and large binaries without running out of memory [1]. Additionally, `UploadFile` provides a \"file-like\" object with an `async` interface, allowing for metadata to be retrieved from the uploaded file and exposing a Python `SpooledTemporaryFile` object that can be passed directly to other libraries [1].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/request-files.md",
+        "anchor": "file-parameters-with-uploadfile",
+        "header": "Request Files > File Parameters with `UploadFile`"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/request-files.md",
+        "anchor": "uploadfile",
+        "header": "Request Files > File Parameters with `UploadFile` > `UploadFile`"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/request-files.md",
+        "anchor": "define-file-parameters",
+        "header": "Request Files > Define `File` Parameters"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/request-files.md",
+        "anchor": "recap",
+        "header": "Request Files > Recap"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/request-files.md",
+        "anchor": "multiple-file-uploads-with-additional-metadata",
+        "header": "Request Files > Multiple File Uploads > Multiple File Uploads with Additional Metadata"
+      }
+    ],
+    "latency_ms": 40114
+  },
+  {
+    "id": "test-010",
+    "question": "Which ASGI server is described as compatible with HTTP/2 and Trio?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/manually.md",
+        "anchor": "asgi-servers"
+      }
+    ],
+    "answer": "The ASGI server described as compatible with HTTP/2 and Trio is Hypercorn. [1]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/manually.md",
+        "anchor": "asgi-servers",
+        "header": "Run a Server Manually > ASGI Servers"
+      },
+      {
+        "n": 2,
+        "file": "advanced/middleware.md",
+        "anchor": "adding-asgi-middlewares",
+        "header": "Advanced Middleware > Adding ASGI middlewares"
+      },
+      {
+        "n": 3,
+        "file": "alternatives.md",
+        "anchor": "starlette",
+        "header": "Alternatives, Inspiration and Comparisons > Used by **FastAPI** > [Starlette](https://starlette.dev/)"
+      },
+      {
+        "n": 4,
+        "file": "how-to/graphql.md",
+        "anchor": "graphql",
+        "header": "GraphQL"
+      },
+      {
+        "n": 5,
+        "file": "deployment/manually.md",
+        "anchor": "install-the-server-program",
+        "header": "Run a Server Manually > Install the Server Program"
+      }
+    ],
+    "latency_ms": 36613
+  },
+  {
+    "id": "test-011",
+    "question": "Which option should I add to the container's start command when it runs behind a load balancer like Nginx or Traefik?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/docker.md",
+        "anchor": "behind-a-tls-termination-proxy"
+      }
+    ],
+    "answer": "To tell Uvicorn to trust the headers sent by the load balancer, you should add the `--proxy-headers` option to the container's start command [1]. This will allow Uvicorn to correctly handle the requests from the load balancer.",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/docker.md",
+        "anchor": "behind-a-tls-termination-proxy",
+        "header": "FastAPI in Containers - Docker > Build a Docker Image for FastAPI > Dockerfile > Behind a TLS Termination Proxy"
+      },
+      {
+        "n": 2,
+        "file": "deployment/docker.md",
+        "anchor": "load-balancer",
+        "header": "FastAPI in Containers - Docker > Replication - Number of Processes > Load Balancer"
+      },
+      {
+        "n": 3,
+        "file": "advanced/behind-a-proxy.md",
+        "anchor": "testing-locally-with-traefik",
+        "header": "Behind a Proxy > Testing locally with Traefik"
+      },
+      {
+        "n": 4,
+        "file": "advanced/behind-a-proxy.md",
+        "anchor": "testing-locally-with-traefik",
+        "header": "Behind a Proxy > Testing locally with Traefik"
+      },
+      {
+        "n": 5,
+        "file": "project-generation.md",
+        "anchor": "full-stack-fastapi-template-technology-stack-and-features",
+        "header": "Full Stack FastAPI Template > Full Stack FastAPI Template - Technology Stack and Features"
+      }
+    ],
+    "latency_ms": 32596
+  },
+  {
+    "id": "test-012",
+    "question": "Which hosted deployment service is built by the same team behind FastAPI?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "deployment/cloud.md",
+        "anchor": "fastapi-cloud"
+      }
+    ],
+    "answer": "The hosted deployment service built by the same team behind FastAPI is FastAPI Cloud [1][2][3][4][5].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "deployment/cloud.md",
+        "anchor": "fastapi-cloud",
+        "header": "Deploy FastAPI on Cloud Providers > FastAPI Cloud"
+      },
+      {
+        "n": 2,
+        "file": "deployment/fastapicloud.md",
+        "anchor": "about-fastapi-cloud",
+        "header": "FastAPI Cloud > About FastAPI Cloud"
+      },
+      {
+        "n": 3,
+        "file": "index.md",
+        "anchor": "about-fastapi-cloud",
+        "header": "FastAPI > Example upgrade > Deploy your app (optional) > About FastAPI Cloud"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/first-steps.md",
+        "anchor": "about-fastapi-cloud",
+        "header": "First Steps > Recap, step by step > Step 6: Deploy it > About FastAPI Cloud"
+      },
+      {
+        "n": 5,
+        "file": "help-fastapi.md",
+        "anchor": "try-fastapi-cloud",
+        "header": "Help > Try FastAPI Cloud"
+      }
+    ],
+    "latency_ms": 24684
+  },
+  {
+    "id": "test-013",
+    "question": "If I allow all origins with a wildcard, which kinds of requests still don't work?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/cors.md",
+        "anchor": "wildcards"
+      }
+    ],
+    "answer": "If you allow all origins with a wildcard, requests that involve credentials, such as Cookies and Authorization headers like those used with Bearer Tokens, will not work [1]. This is because the default parameters used by the `CORSMiddleware` implementation are restrictive by default, and allowing all origins with a wildcard does not explicitly enable these types of requests [2].",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/cors.md",
+        "anchor": "wildcards",
+        "header": "CORS (Cross-Origin Resource Sharing) > Wildcards"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/cors.md",
+        "anchor": "use-corsmiddleware",
+        "header": "CORS (Cross-Origin Resource Sharing) > Use `CORSMiddleware`"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/cors.md",
+        "anchor": "use-corsmiddleware",
+        "header": "CORS (Cross-Origin Resource Sharing) > Use `CORSMiddleware`"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/cors.md",
+        "anchor": "steps",
+        "header": "CORS (Cross-Origin Resource Sharing) > Steps"
+      },
+      {
+        "n": 5,
+        "file": "advanced/middleware.md",
+        "anchor": "trustedhostmiddleware",
+        "header": "Advanced Middleware > `TrustedHostMiddleware`"
+      }
+    ],
+    "latency_ms": 39328
+  },
+  {
+    "id": "test-014",
+    "question": "When would I choose a job queue like Celery or RabbitMQ over FastAPI's built-in background tasks?",
+    "answerable": true,
+    "gold": [
+      {
+        "file": "tutorial/background-tasks.md",
+        "anchor": "caveat"
+      }
+    ],
+    "answer": "You would choose a job queue like Celery or RabbitMQ over FastAPI's built-in background tasks when you need to perform heavy background computation that requires running in multiple processes and multiple servers, and you need to share memory, variables, etc. [1]",
+    "refused": false,
+    "refused_by": null,
+    "sources": [
+      {
+        "n": 1,
+        "file": "tutorial/background-tasks.md",
+        "anchor": "caveat",
+        "header": "Background Tasks > Caveat"
+      },
+      {
+        "n": 2,
+        "file": "reference/background.md",
+        "anchor": "",
+        "header": "Background Tasks - `BackgroundTasks`"
+      },
+      {
+        "n": 3,
+        "file": "tutorial/background-tasks.md",
+        "anchor": "dependency-injection",
+        "header": "Background Tasks > Dependency Injection"
+      },
+      {
+        "n": 4,
+        "file": "tutorial/background-tasks.md",
+        "anchor": "technical-details",
+        "header": "Background Tasks > Technical Details"
+      },
+      {
+        "n": 5,
+        "file": "alternatives.md",
+        "anchor": "uvicorn",
+        "header": "Alternatives, Inspiration and Comparisons > Used by **FastAPI** > [Uvicorn](https://uvicorn.dev)"
+      }
+    ],
+    "latency_ms": 31703
+  },
+  {
+    "id": "test-015",
+    "question": "How do I deploy my FastAPI app to Azure App Service?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "model",
+    "sources": [
+      {
+        "n": 1,
+        "file": "index.md",
+        "anchor": "deploy-your-app-optional",
+        "header": "FastAPI > Example upgrade > Deploy your app (optional)"
+      },
+      {
+        "n": 2,
+        "file": "tutorial/first-steps.md",
+        "anchor": "deploy-your-app-optional",
+        "header": "First Steps > Deploy your app (optional)"
+      },
+      {
+        "n": 3,
+        "file": "deployment/fastapicloud.md",
+        "anchor": "fastapi-cloud",
+        "header": "FastAPI Cloud"
+      },
+      {
+        "n": 4,
+        "file": "index.md",
+        "anchor": "deploy-to-other-cloud-providers",
+        "header": "FastAPI > Example upgrade > Deploy your app (optional) > Deploy to other cloud providers"
+      },
+      {
+        "n": 5,
+        "file": "tutorial/first-steps.md",
+        "anchor": "step-6-deploy-it",
+        "header": "First Steps > Recap, step by step > Step 6: Deploy it"
+      }
+    ],
+    "latency_ms": 19546
+  },
+  {
+    "id": "test-016",
+    "question": "How do I connect my FastAPI app to MongoDB?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 965
+  },
+  {
+    "id": "test-017",
+    "question": "How do I enable cookie-based user sessions with SessionMiddleware?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 984
+  },
+  {
+    "id": "test-018",
+    "question": "How do I verify the HMAC signature of an incoming webhook request in FastAPI?",
+    "answerable": false,
+    "gold": [],
+    "answer": "I could not find this in the FastAPI docs.",
+    "refused": true,
+    "refused_by": "gate",
+    "sources": [],
+    "latency_ms": 1003
+  }
+]
