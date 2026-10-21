@@ -6,7 +6,7 @@ from docpilot.generation.rewrite import rewrite_question
 from docpilot.retrieval import hybrid, rerank
 
 MODEL = "llama3.2:3b"
-CE_THRESHOLD = 1.5  # chosen by eye from dev scores, untuned
+from docpilot.thresholds import CE_THRESHOLD  # noqa: F401 # chosen by eye from dev scores, untuned
 
 
 def answer(question, k=5, threshold=CE_THRESHOLD, history=None):
