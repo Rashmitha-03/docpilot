@@ -1,4 +1,4 @@
-from curses import meta
+
 import json
 
 import httpx
