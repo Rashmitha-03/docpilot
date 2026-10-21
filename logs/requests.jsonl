@@ -1,3 +1,8 @@
 {"ts": "2026-10-21T20:45:40", "endpoint": "/ask", "mode": "agent", "q_len": 6, "refused_by": null, "n_sources": 0, "verify": [], "seconds": 4.98}
 {"ts": "2026-10-21T20:45:59", "endpoint": "/ask/stream", "mode": "naive", "q_len": 2, "seconds": 18.98}
 {"ts": "2026-10-21T20:47:11", "endpoint": "/ask/stream", "mode": "naive", "q_len": 15, "seconds": 46.19}
+{"ts": "2026-10-21T20:50:41", "endpoint": "/ask/stream", "mode": "naive", "q_len": 2, "seconds": 0.0}
+{"ts": "2026-10-21T20:50:49", "endpoint": "/ask/stream", "mode": "naive", "q_len": 5, "seconds": 0.0}
+{"ts": "2026-10-21T20:51:21", "endpoint": "/ask/stream", "mode": "naive", "q_len": 2, "seconds": 24.8}
+{"ts": "2026-10-21T20:52:10", "endpoint": "/ask/stream", "mode": "naive", "q_len": 65, "seconds": 36.84}
+{"ts": "2026-10-21T20:53:13", "endpoint": "/ask/stream", "mode": "naive", "q_len": 3, "seconds": 33.96}
