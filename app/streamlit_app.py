@@ -1,3 +1,4 @@
+from curses import meta
 import json
 
 import httpx
@@ -20,6 +21,16 @@ def show_sources(sources):
             for s in sources:
                 st.markdown(f"**[{s['n']}]** `{s['file']}` > {s['header']}")
 
+def show_debug(meta, text):
+    if meta:
+        with st.expander("Debug"):
+            st.write("Standalone question:", meta.get("standalone"))
+            if meta.get("refused_by") == "gate":
+                st.write("Refused by: gate (retrieval score below threshold)")
+            elif text.strip() == REFUSAL:
+                st.write("Refused by: model")
+            else:
+                st.write("Answered")
 
 def stream_ask(question, history):
     """Yield ('meta', dict) once, then ('token', str) pieces."""
@@ -50,17 +61,19 @@ if q:
         st.markdown(q)
     with st.chat_message("assistant"):
         box = st.empty()
-        text, sources = "", []
+        text, sources, meta = "", [], {}
         try:
             for kind, data in stream_ask(q, history):
                 if kind == "meta":
                     sources = data["sources"]
+                    meta = data
                 else:
                     text += data
                     box.markdown(text)
         except httpx.HTTPError as e:
             text = f"API error: {e}. Is the server running on port 8000?"
             box.markdown(text)
-        show_sources(sources)
-    st.session_state.messages.append(
-        {"role": "assistant", "content": text, "sources": sources})
+            show_sources(sources)
+        show_debug(meta, text)
+        st.session_state.messages.append(
+        {"role": "assistant", "content": text, "sources": sources, "meta": meta})
