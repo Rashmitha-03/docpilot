@@ -4,6 +4,7 @@ import httpx
 import streamlit as st
 
 API = "http://127.0.0.1:8000"
+REFUSAL = "I could not find this in the FastAPI docs."
 
 st.set_page_config(page_title="DocPilot", page_icon="📄")
 st.title("DocPilot")
@@ -38,6 +39,7 @@ for m in st.session_state.messages:
         st.markdown(m["content"])
         if m["role"] == "assistant":
             show_sources(m.get("sources", []))
+            show_debug(m.get("meta", {}), m["content"])
 
 q = st.chat_input("Ask about FastAPI...")
 if q:
