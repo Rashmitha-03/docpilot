@@ -2,7 +2,7 @@ import re
 
 import ollama
 
-from docpilot.generation.answer import CE_THRESHOLD
+from docpilot.thresholds import CE_THRESHOLD
 
 CHITCHAT = re.compile(
     r"(hi|hello|hey|thanks|thank you|thx|bye|goodbye|ok|okay|cool|great)"
