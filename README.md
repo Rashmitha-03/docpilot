@@ -122,3 +122,18 @@ Run from the repo root (venv active):
 API limitations:
 - On the stream, `meta` is sent before generation, so a refusal by the model arrives with `refused_by: null`. Clients can detect it by comparing the text to the refusal sentence. `/ask` sets `refused_by: "model"` correctly.
 - Models load on the first request, so the first call is slow (about 12 s for model load, then about 35 s per answer on CPU).
+
+## UI
+
+Streamlit chat app. It calls the API, so start the server first (see API), then in a second window:
+
+    python -m streamlit run app\streamlit_app.py
+
+- Answers stream token by token, with a collapsible Sources panel (file and section) under each answer.
+- Follow-up questions are rewritten into standalone questions using the chat history.
+- A Debug panel shows the rewritten question and whether the gate, the model, or neither refused.
+
+UI limitations:
+- Naive path only (the agent is not streamed).
+- The Debug panel infers model refusals by comparing the text to the refusal sentence.
+- Follow-up rewriting is only lightly checked (a few hand-picked cases).
