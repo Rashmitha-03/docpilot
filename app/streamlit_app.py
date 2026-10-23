@@ -41,7 +41,7 @@ def stream_ask(question, history):
         for line in r.iter_lines():
             if line.startswith("event: "):
                 event = line[7:]
-            elif line.startswith("data: ") and event in ("meta", "token"):
+            elif line.startswith("data: ") and event in ("meta", "token", "error"):
                 yield event, json.loads(line[6:])
 
 
@@ -64,7 +64,10 @@ if q:
         text, sources, meta = "", [], {}
         try:
             for kind, data in stream_ask(q, history):
-                if kind == "meta":
+                if kind == "error":
+                    text += f"\n\n**Error:** {data}"
+                    box.markdown(text)
+                elif kind == "meta":
                     sources = data["sources"]
                     meta = data
                 else:
