@@ -33,9 +33,14 @@ def stream_answer(question, history=None, k=5, threshold=CE_THRESHOLD):
     hits = hybrid.search(question, k=k)
     msgs, sources = build_messages(question, hits)
     yield _sse("meta", {"refused_by": None, "sources": sources, "standalone": question})
-    for part in ollama.chat(model=MODEL, messages=msgs, stream=True,
-                            options={"temperature": 0}):
-        piece = part["message"]["content"]
-        if piece:
-            yield _sse("token", piece)
+    try:
+        for part in ollama.chat(model=MODEL, messages=msgs, stream=True,
+                                options={"temperature": 0}):
+            piece = part["message"]["content"]
+            if piece:
+                yield _sse("token", piece)
+    except httpx.ConnectError:
+        yield _sse("error", "The language model server (Ollama) is not running. Start Ollama and try again.")
+    except Exception as e:
+        yield _sse("error", f"Generation failed: {type(e).__name__}")
     yield _sse("done", {})
