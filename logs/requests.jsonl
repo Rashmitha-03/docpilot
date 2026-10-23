@@ -7,3 +7,4 @@
 {"ts": "2026-10-21T20:52:10", "endpoint": "/ask/stream", "mode": "naive", "q_len": 65, "seconds": 36.84}
 {"ts": "2026-10-21T20:53:13", "endpoint": "/ask/stream", "mode": "naive", "q_len": 3, "seconds": 33.96}
 {"ts": "2026-10-23T20:35:29", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 33.04}
+{"ts": "2026-10-23T20:44:58", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.02}
