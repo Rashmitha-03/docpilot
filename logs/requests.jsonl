@@ -8,3 +8,7 @@
 {"ts": "2026-10-21T20:53:13", "endpoint": "/ask/stream", "mode": "naive", "q_len": 3, "seconds": 33.96}
 {"ts": "2026-10-23T20:35:29", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 33.04}
 {"ts": "2026-10-23T20:44:58", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.02}
+{"ts": "2026-10-23T20:48:02", "endpoint": "/ask/stream", "mode": "naive", "q_len": 27, "seconds": 22.92}
+{"ts": "2026-10-23T20:49:38", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.04}
+{"ts": "2026-10-23T20:54:55", "endpoint": "/ask/stream", "mode": "naive", "q_len": 36, "seconds": 2.03}
+{"ts": "2026-10-23T20:56:43", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.03}
