@@ -1,5 +1,6 @@
 import json
 
+import httpx
 import ollama
 
 from docpilot.agent.nodes import route
@@ -9,6 +10,7 @@ from docpilot.generation.rewrite import rewrite_question
 from docpilot.retrieval import hybrid, rerank
 
 CHITCHAT_REPLY = "Hi! Ask me anything about the FastAPI docs."
+OLLAMA_DOWN = "The language model server (Ollama) is not running. Start Ollama and try again."
 
 
 def _sse(event, data):
@@ -17,30 +19,30 @@ def _sse(event, data):
 
 def stream_answer(question, history=None, k=5, threshold=CE_THRESHOLD):
     """Naive path as a generator of SSE strings. Same steps as answer(),
-    plus a canned reply for whole-message greetings or thanks."""
+    plus a canned reply for greetings and clear errors if Ollama fails."""
     if route(question) == "chitchat":
         yield _sse("meta", {"refused_by": None, "sources": [], "standalone": question})
         yield _sse("token", CHITCHAT_REPLY)
         yield _sse("done", {})
         return
-    question = rewrite_question(history or [], question)
-    top = rerank.search(question, k=1)
-    if not top or top[0].score < threshold:
-        yield _sse("meta", {"refused_by": "gate", "sources": [], "standalone": question})
-        yield _sse("token", REFUSAL)
-        yield _sse("done", {})
-        return
-    hits = hybrid.search(question, k=k)
-    msgs, sources = build_messages(question, hits)
-    yield _sse("meta", {"refused_by": None, "sources": sources, "standalone": question})
     try:
+        question = rewrite_question(history or [], question)
+        top = rerank.search(question, k=1)
+        if not top or top[0].score < threshold:
+            yield _sse("meta", {"refused_by": "gate", "sources": [], "standalone": question})
+            yield _sse("token", REFUSAL)
+            yield _sse("done", {})
+            return
+        hits = hybrid.search(question, k=k)
+        msgs, sources = build_messages(question, hits)
+        yield _sse("meta", {"refused_by": None, "sources": sources, "standalone": question})
         for part in ollama.chat(model=MODEL, messages=msgs, stream=True,
                                 options={"temperature": 0}):
             piece = part["message"]["content"]
             if piece:
                 yield _sse("token", piece)
-    except httpx.ConnectError:
-        yield _sse("error", "The language model server (Ollama) is not running. Start Ollama and try again.")
+    except (ConnectionError, httpx.ConnectError):
+        yield _sse("error", OLLAMA_DOWN)
     except Exception as e:
         yield _sse("error", f"Generation failed: {type(e).__name__}")
     yield _sse("done", {})
