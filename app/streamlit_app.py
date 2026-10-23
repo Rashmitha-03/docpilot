@@ -14,6 +14,12 @@ st.caption("Ask questions about the FastAPI docs. Answers cite their sources.")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+mode = st.sidebar.radio("Mode", ["naive", "agent"])
+st.sidebar.caption(
+    "naive: streams, remembers the chat. "
+    "agent: no streaming, no chat history, slower, retries weak searches."
+)
+
 
 def show_sources(sources):
     if sources:
@@ -24,6 +30,9 @@ def show_sources(sources):
 def show_debug(meta, text):
     if meta:
         with st.expander("Debug"):
+            st.write("Mode:", meta.get("mode", "naive"))
+            if meta.get("mode") == "agent":
+                st.write("Verify flags:", meta.get("verify") or "none")
             st.write("Standalone question:", meta.get("standalone"))
             if meta.get("refused_by") == "gate":
                 st.write("Refused by: gate (retrieval score below threshold)")
@@ -45,6 +54,13 @@ def stream_ask(question, history):
                 yield event, json.loads(line[6:])
 
 
+def agent_ask(question):
+    body = {"question": question, "mode": "agent"}
+    r = httpx.post(f"{API}/ask", json=body, timeout=300)
+    r.raise_for_status()
+    return r.json()
+
+
 for m in st.session_state.messages:
     with st.chat_message(m["role"]):
         st.markdown(m["content"])
@@ -63,13 +79,20 @@ if q:
         box = st.empty()
         text, sources, meta = "", [], {}
         try:
-            for kind, data in stream_ask(q, history):
+            if mode == "agent":
+                with st.spinner("Agent is working (no streaming, can take a minute)..."):
+                    res = agent_ask(q)
+                text, sources = res["answer"], res["sources"]
+                meta = {**res, "mode": "agent"}
+                box.markdown(text)
+            events = [] if mode == "agent" else stream_ask(q, history)
+            for kind, data in events:
                 if kind == "error":
                     text += f"\n\n**Error:** {data}"
                     box.markdown(text)
                 elif kind == "meta":
                     sources = data["sources"]
-                    meta = data
+                    meta = {**data, "mode": "naive"}
                 else:
                     text += data
                     box.markdown(text)
