@@ -26,6 +26,18 @@ st.markdown("""<style>
 .dp-badge.agent {border-color: rgba(6,182,212,.55); background: rgba(6,182,212,.12);}
 .dp-badge.refused {border-color: rgba(245,158,11,.55); background: rgba(245,158,11,.14);}
 .dp-src {border-left: 3px solid #6366f1; padding: .35rem .8rem; margin: .35rem 0; border-radius: 0 8px 8px 0; background: rgba(128,128,128,.08); font-size: .9rem;}
+[data-testid="stSidebar"] {border-right: 1px solid rgba(128,128,128,.25);}
+[data-testid="stSidebar"] .block-container {padding-top: 1rem;}
+.dp-side-brand {display: flex; align-items: center; gap: .6rem; margin-bottom: .2rem;}
+.dp-side-logo {width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: linear-gradient(135deg, #6366f1, #06b6d4);}
+.dp-side-name {font-weight: 700; font-size: 1.15rem; line-height: 1.1;}
+.dp-side-tag {font-size: .75rem; opacity: .65;}
+.dp-label {font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .55; margin: 1rem 0 .3rem 0;}
+.dp-card {border: 1px solid rgba(128,128,128,.28); border-left: 3px solid #6366f1; border-radius: 10px; padding: .6rem .8rem; background: rgba(128,128,128,.07); font-size: .85rem; line-height: 1.4;}
+.dp-card.agent {border-left-color: #06b6d4;}
+.dp-fact {display: flex; justify-content: space-between; gap: .5rem; font-size: .82rem; padding: .25rem 0; border-bottom: 1px dashed rgba(128,128,128,.25);}
+.dp-fact span:first-child {opacity: .65;}
+.dp-fact span:last-child {text-align: right; font-weight: 600;}
 </style>""", unsafe_allow_html=True)
 
 st.markdown(
@@ -40,13 +52,37 @@ if "messages" not in st.session_state:
 if "pending" not in st.session_state:
     st.session_state.pending = None
 
+MODE_INFO = {
+    "naive": ("Naive", "Streams the answer live and remembers the chat."),
+    "agent": ("Agent", "Routes the question, grades its own search and retries once if the search is weak. "
+                       "No streaming and no chat memory."),
+}
+
 with st.sidebar:
-    st.header("Settings")
-    mode = st.radio("Mode", ["naive", "agent"])
-    st.caption(
-        "naive: streams the answer and remembers the chat.  \n"
-        "agent: no streaming, no chat history, slower, retries weak searches."
+    st.markdown(
+        '<div class="dp-side-brand"><div class="dp-side-logo">\U0001F4C4</div>'
+        '<div><div class="dp-side-name">DocPilot</div>'
+        '<div class="dp-side-tag">Citation-first docs assistant</div></div></div>',
+        unsafe_allow_html=True,
     )
+
+    st.markdown('<div class="dp-label">Answer mode</div>', unsafe_allow_html=True)
+    mode = st.radio("Answer mode", ["naive", "agent"],
+                    format_func=lambda m: MODE_INFO[m][0], label_visibility="collapsed")
+    st.markdown(f'<div class="dp-card {mode}">{MODE_INFO[mode][1]}</div>',
+                unsafe_allow_html=True)
+
+    st.markdown('<div class="dp-label">About</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="dp-fact"><span>Corpus</span><span>FastAPI docs</span></div>'
+        '<div class="dp-fact"><span>Size</span><span>155 files, 1,372 chunks</span></div>'
+        '<div class="dp-fact"><span>Retrieval</span><span>BM25 + vector (RRF)</span></div>'
+        '<div class="dp-fact"><span>Model</span><span>llama3.2:3b, local CPU</span></div>',
+        unsafe_allow_html=True,
+    )
+    st.caption("A small local model can make mistakes. Check the cited sources.")
+
+    st.markdown('<div class="dp-label">Chat</div>', unsafe_allow_html=True)
     if st.button("Clear chat", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
