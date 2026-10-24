@@ -105,7 +105,7 @@ Held-out test set, one pass, config frozen beforehand: 14 answerable and 4 unans
 
 ## Roadmap
 
-FastAPI service with streaming, Streamlit UI, tests and CI, live demo, final test-set run.
+Live deployment, architecture diagram, and a re-run of dev and test with the current prompt (rule 5).
 
 ## API
 
@@ -114,7 +114,7 @@ Run from the repo root (venv active):
     python -m uvicorn docpilot.api.main:app --port 8000
 
 - `GET /health` returns `{"status": "ok"}`.
-- `POST /ask` takes `{"question", "mode", "history"}` and returns the full answer. `mode` is `naive` (default) or `agent`. `history` is used only by the naive path.
+- `POST /ask` takes `{"question", "mode", "history"}` and returns the full answer. `mode` is `naive` (default) or `agent`. `history` is used only by the naive path. Questions with no history are cached in memory (128 entries, least recently used evicted); the log records `cache_hit`. A hit returned in about 0.0001 s server-side vs about 105 s for a first call that included model load, so the typical miss time is the dev p50 of 34 s.
 - `POST /ask/stream` streams the naive path as Server-Sent Events: one `meta` event (sources, standalone question), then `token` events, then `done`.
 
 API limitations:
@@ -138,6 +138,6 @@ Probed with 3 injection-style questions (anecdotal, not a guarantee). Off-topic 
 **Post-test change:** rule 5 was added after the test-set run. The reported test and dev numbers were measured with the previous prompt and were not re-run.
 
 UI limitations:
-- Naive path only (the agent is not streamed).
+- Streaming is naive only. Agent mode uses `/ask` (no streaming, no chat history) and shows a spinner.
 - The Debug panel infers model refusals by comparing the text to the refusal sentence.
 - Follow-up rewriting is only lightly checked (a few hand-picked cases).
