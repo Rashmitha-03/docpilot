@@ -1,5 +1,5 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.14.1
+torch==2.14.1+cpu
 chromadb==1.5.9
 fastapi==0.150.0
 httpx==0.28.1
