@@ -1,8 +1,7 @@
 import json
 
 import httpx
-import ollama
-
+from docpilot.generation import llm
 from docpilot.agent.nodes import route
 from docpilot.generation.answer import CE_THRESHOLD, MODEL
 from docpilot.generation.prompts import REFUSAL, build_messages
@@ -36,11 +35,8 @@ def stream_answer(question, history=None, k=5, threshold=CE_THRESHOLD):
         hits = hybrid.search(question, k=k)
         msgs, sources = build_messages(question, hits)
         yield _sse("meta", {"refused_by": None, "sources": sources, "standalone": question})
-        for part in ollama.chat(model=MODEL, messages=msgs, stream=True,
-                                options={"temperature": 0}):
-            piece = part["message"]["content"]
-            if piece:
-                yield _sse("token", piece)
+        for piece in llm.chat(msgs, stream=True):
+            yield _sse("token", piece)
     except (ConnectionError, httpx.ConnectError):
         yield _sse("error", OLLAMA_DOWN)
     except Exception as e:
