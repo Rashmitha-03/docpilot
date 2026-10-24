@@ -13,10 +13,12 @@ __pycache__/
 # Data and indexes (large or regenerable)
 data/*
 !data/manifest.md
-chroma_db/
 imp.txt
 
 # OS / editor
 .DS_Store
 Thumbs.db
 Readme.bak
+
+logs/
+*.bak*
