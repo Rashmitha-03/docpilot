@@ -159,6 +159,58 @@ def agent_ask(question):
     return r.json()
 
 
+if INPROC:
+    def stream_ask(question, history):
+        """Same ('meta' | 'token' | 'error', data) events as the API version, no HTTP."""
+        from docpilot.api.schemas import AskRequest
+        from docpilot.api.stream import stream_answer
+
+        pairs = AskRequest(question=question, history=history).history
+        for chunk in stream_answer(question, history=pairs):
+            event = None
+            for line in chunk.splitlines():
+                if line.startswith("event: "):
+                    event = line[7:]
+                elif line.startswith("data: ") and event in ("meta", "token", "error"):
+                    yield event, json.loads(line[6:])
+
+    def agent_ask(question):
+        from docpilot.agent.graph import graph
+
+        try:
+            res = graph.invoke({"question": question})
+        except Exception as e:
+            raise httpx.HTTPError(f"Agent failed: {type(e).__name__}")
+        return {"answer": res["answer"], "refused_by": res["refused_by"] or None,
+                "sources": res["sources"], "verify": res["verify"], "standalone": None}
+
+
+if INPROC:
+    def stream_ask(question, history):
+        """Same ('meta' | 'token' | 'error', data) events as the API version, no HTTP."""
+        from docpilot.api.schemas import AskRequest
+        from docpilot.api.stream import stream_answer
+
+        pairs = AskRequest(question=question, history=history).history
+        for chunk in stream_answer(question, history=pairs):
+            event = None
+            for line in chunk.splitlines():
+                if line.startswith("event: "):
+                    event = line[7:]
+                elif line.startswith("data: ") and event in ("meta", "token", "error"):
+                    yield event, json.loads(line[6:])
+
+    def agent_ask(question):
+        from docpilot.agent.graph import graph
+
+        try:
+            res = graph.invoke({"question": question})
+        except Exception as e:
+            raise httpx.HTTPError(f"Agent failed: {type(e).__name__}")
+        return {"answer": res["answer"], "refused_by": res["refused_by"] or None,
+                "sources": res["sources"], "verify": res["verify"], "standalone": None}
+
+
 typed = st.chat_input("Ask about FastAPI...")
 q = st.session_state.pending or typed
 st.session_state.pending = None
