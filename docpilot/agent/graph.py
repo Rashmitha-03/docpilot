@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-import ollama
+from docpilot.generation import llm
 from langgraph.graph import END, START, StateGraph
 
 from docpilot.agent.nodes import grade, retry_query, route, verify
@@ -65,8 +65,7 @@ def reply_node(s: State) -> State:
         return {"answer": REFUSAL, "refused_by": "gate", "sources": []}
     hits = hybrid.search(s["query"], k=5)
     msgs, sources = build_messages(s["question"], hits)
-    resp = ollama.chat(model=MODEL, messages=msgs, options={"temperature": 0})
-    out = resp["message"]["content"].strip()
+    out = llm.chat(msgs).strip()
     return {"answer": out, "refused_by": "model" if out == REFUSAL else "",
             "sources": sources}
 
