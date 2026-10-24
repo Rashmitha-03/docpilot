@@ -1,8 +1,8 @@
-# DocPilot
+﻿# DocPilot
 
 A citation-first Q&A assistant over the FastAPI documentation. It answers with references to the exact doc file and section, and refuses when the docs don't cover the question. Everything runs locally and for free (CPU only, Ollama).
 
-> **Status: work in progress.** Retrieval, grounded generation, answer-level evaluation and follow-up handling are done. The agentic layer is built and evaluated on dev (small, anecdotal effect: 1 question of 24). The API, UI, CI and a live demo are not built yet. Dev results below are optimistic (tuned on dev); the held-out test set was run once (see "Test results")..
+> **Status: working end to end, local only.** Retrieval (vector, BM25, hybrid), grounded generation with citations and refusal, answer-level evaluation, follow-up handling, an agentic layer, a FastAPI service (streaming), a Streamlit UI with a naive/agent switch, an in-memory answer cache, 22 tests and CI are done. Dev results are optimistic (tuned on dev); the held-out test set was run once (see "Test results"). The agentic layer showed no demonstrated benefit on the test set. A live deployment is not built yet.
 
 ## How it works
 
@@ -57,6 +57,7 @@ Answer level (30 dev questions, one pass):
 - **Cross-encoder as a gate, not a ranker.** Measured: it did not help ranking, but its top-1 score works as a refusal gate (threshold 1.5, chosen by eye on dev). On dev it catches 4 of 6 unanswerable questions; scores overlap, so it cannot catch topic-matching ones. I did not compare it against cosine or RRF scores as a gate.
 - **Query rewriting for follow-ups.** Without it, a follow-up with no topic words is refused by the gate. Rewriting adds about 2 s per follow-up turn.
 - **LLM-as-judge dropped.** The 3B judge was too noisy to trust (see `docs/ablations.md`).
+- **Agentic layer: small effect.** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
 
 ## Limitations
 
@@ -95,9 +96,6 @@ docs/       ablations.md (full tables, failures, iterations)
 tests/      test_metrics.py
 data/       manifest.md
 ```
-## Design decisions
-- **Agentic layer: small effect.** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
-
 ## Test results
 
 Held-out test set, one pass, config frozen beforehand: 14 answerable and 4 unanswerable questions. Counts are descriptive only.
