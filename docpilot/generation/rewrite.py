@@ -1,5 +1,4 @@
-import ollama
-
+from docpilot.generation import llm
 from docpilot import config  # noqa: F401  (kept for later settings)
 
 REWRITE_MODEL = "llama3.2:3b"
@@ -40,15 +39,10 @@ def rewrite_question(history, question):
         f"Follow-up question: {question}\n\n"
         "Standalone question:"
     )
-    r = ollama.chat(
-        model=REWRITE_MODEL,
-        messages=[
-            {"role": "system", "content": SYSTEM},
-            {"role": "user", "content": prompt},
-        ],
-        options={"temperature": 0},
-    )
-    out = r["message"]["content"].strip().splitlines()
+    out = llm.chat([
+        {"role": "system", "content": SYSTEM},
+        {"role": "user", "content": prompt},
+    ]).strip().splitlines()
     out = out[0].strip() if out else ""
     # Safety net: if the model returns nothing, fall back to the original question.
     return out or question
