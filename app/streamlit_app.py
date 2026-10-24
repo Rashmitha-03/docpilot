@@ -145,6 +145,8 @@ def stream_ask(question, history):
 def agent_ask(question):
     body = {"question": question, "mode": "agent"}
     r = httpx.post(f"{API}/ask", json=body, timeout=300)
+    if r.status_code == 503:
+        raise httpx.HTTPError(r.json().get("detail", "Service unavailable"))
     r.raise_for_status()
     return r.json()
 
