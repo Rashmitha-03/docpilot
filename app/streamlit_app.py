@@ -5,7 +5,15 @@ import time
 import httpx
 import streamlit as st
 
+import os
+import sys
+from pathlib import Path
+
+# Make `docpilot` importable when the host runs this file from app/.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 API = "http://127.0.0.1:8000"
+INPROC = os.getenv("DOCPILOT_INPROCESS") == "1"  # call the pipeline directly, no API server
 REFUSAL = "I could not find this in the FastAPI docs."
 # Placeholders: edit these to questions your corpus covers.
 EXAMPLES = [
