@@ -1,6 +1,6 @@
 import re
 
-import ollama
+from docpilot.generation import llm
 
 from docpilot.thresholds import CE_THRESHOLD
 
@@ -42,15 +42,10 @@ RETRY_SYSTEM = (
 
 def retry_query(question: str) -> str:
     """One LLM call: rewrite a weakly retrieved question into a search query."""
-    resp = ollama.chat(
-        model="llama3.2:3b",
-        messages=[
-            {"role": "system", "content": RETRY_SYSTEM},
-            {"role": "user", "content": question},
-        ],
-        options={"temperature": 0},
-    )
-    text = resp["message"]["content"].strip().strip('"')
+    text = llm.chat([
+        {"role": "system", "content": RETRY_SYSTEM},
+        {"role": "user", "content": question},
+    ]).strip().strip('"')
     return text or question
 
 CITE = re.compile(r"\[(\d+)\]")
