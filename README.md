@@ -2,7 +2,7 @@
 
 A citation-first Q&A assistant over the FastAPI documentation. It answers with references to the exact doc file and section, and refuses when the docs don't cover the question. Everything runs locally and for free (CPU only, Ollama).
 
-> **Status: working end to end, local only.** Retrieval (vector, BM25, hybrid), grounded generation with citations and refusal, answer-level evaluation, follow-up handling, an agentic layer, a FastAPI service (streaming), a Streamlit UI with a naive/agent switch, an in-memory answer cache, 22 tests and CI are done. Dev results are optimistic (tuned on dev); the held-out test set was run once (see "Test results"). The agentic layer showed no demonstrated benefit on the test set. A demo is deployed on Streamlit Community Cloud (see "Live demo" below).
+> **Status: working end to end (local with Ollama, plus a hosted demo).** Retrieval (vector, BM25, hybrid), grounded generation with citations and refusal, answer-level evaluation, follow-up handling, an agentic layer, a FastAPI service (streaming), a Streamlit UI with a naive/agent switch, an in-memory answer cache, 22 tests and CI are done. Dev results are optimistic (tuned on dev); the held-out test set was run once (see "Test results"). The agentic layer showed no demonstrated benefit on the test set. A demo is deployed on Streamlit Community Cloud (see "Live demo" below).
 
 **Live demo:** https://docpilotrag.streamlit.app/
 
