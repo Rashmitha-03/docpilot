@@ -12,3 +12,13 @@
 {"ts": "2026-10-23T20:49:38", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.04}
 {"ts": "2026-10-23T20:54:55", "endpoint": "/ask/stream", "mode": "naive", "q_len": 36, "seconds": 2.03}
 {"ts": "2026-10-23T20:56:43", "endpoint": "/ask/stream", "mode": "naive", "q_len": 34, "seconds": 2.03}
+{"ts": "2026-10-23T22:10:42", "endpoint": "/ask", "mode": "naive", "q_len": 35, "refused_by": null, "n_sources": 5, "verify": [], "seconds": 67.66}
+{"ts": "2026-10-23T22:11:01", "endpoint": "/ask", "mode": "naive", "q_len": 35, "refused_by": null, "n_sources": 5, "verify": [], "seconds": 18.23}
+{"ts": "2026-10-23T22:13:56", "endpoint": "/ask", "mode": "naive", "q_len": 34, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 105.15}
+{"ts": "2026-10-23T22:13:56", "endpoint": "/ask", "mode": "naive", "q_len": 34, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": true, "seconds": 0.0001}
+{"ts": "2026-10-23T22:24:30", "endpoint": "/ask", "mode": "agent", "q_len": 15, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 45.27}
+{"ts": "2026-10-23T22:24:51", "endpoint": "/ask", "mode": "agent", "q_len": 2, "refused_by": null, "n_sources": 0, "verify": [], "cache_hit": false, "seconds": 0.02}
+{"ts": "2026-10-23T22:28:56", "endpoint": "/ask", "mode": "agent", "q_len": 35, "refused_by": null, "n_sources": 5, "verify": ["no_citation"], "cache_hit": false, "seconds": 59.56}
+{"ts": "2026-10-23T22:37:56", "endpoint": "/ask", "mode": "naive", "q_len": 36, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 38.43}
+{"ts": "2026-10-23T22:38:50", "endpoint": "/ask/stream", "mode": "naive", "q_len": 35, "seconds": 117.64}
+{"ts": "2026-10-23T22:40:55", "endpoint": "/ask/stream", "mode": "naive", "q_len": 6, "seconds": 53.02}
