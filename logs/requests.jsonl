@@ -22,3 +22,8 @@
 {"ts": "2026-10-23T22:37:56", "endpoint": "/ask", "mode": "naive", "q_len": 36, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 38.43}
 {"ts": "2026-10-23T22:38:50", "endpoint": "/ask/stream", "mode": "naive", "q_len": 35, "seconds": 117.64}
 {"ts": "2026-10-23T22:40:55", "endpoint": "/ask/stream", "mode": "naive", "q_len": 6, "seconds": 53.02}
+{"ts": "2026-10-24T20:37:25", "endpoint": "/ask", "mode": "naive", "q_len": 30, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 15.24}
+{"ts": "2026-10-24T20:37:26", "endpoint": "/ask", "mode": "naive", "q_len": 37, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 1.54}
+{"ts": "2026-10-24T20:38:46", "endpoint": "/ask/stream", "mode": "naive", "q_len": 36, "seconds": 2.09}
+{"ts": "2026-10-24T20:39:02", "endpoint": "/ask", "mode": "agent", "q_len": 36, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 3.88}
+{"ts": "2026-10-24T20:39:19", "endpoint": "/ask", "mode": "agent", "q_len": 31, "refused_by": "gate", "n_sources": 0, "verify": [], "cache_hit": false, "seconds": 0.57}
