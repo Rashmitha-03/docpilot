@@ -27,6 +27,7 @@ print("gold labels checked:", checked)
 print("gold labels with no chunk:", missing)
 
 # 2) token lengths of the real chunk text
+
 tok = SentenceTransformer("BAAI/bge-small-en-v1.5").tokenizer
 pairs = [(len(tok.encode(c.text, add_special_tokens=True)), c) for c in chunks]
 lens = sorted(t for t, _ in pairs)

@@ -26,4 +26,4 @@ Documentation text belongs to the FastAPI authors and is used under the MIT lice
 
 - Headings carry an anchor suffix, e.g. `# First Steps { #first-steps }`.
 - Code examples are include markers like `{* ../../docs_src/first_steps/tutorial001_py310.py *}`, so the code is not in the indexed text.
-- Heading levels can skip (a `#` followed directly by `###`).
+- Heading levels can skip (a `#` followed directly by `###`)

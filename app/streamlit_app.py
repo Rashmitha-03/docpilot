@@ -12,6 +12,7 @@ from pathlib import Path
 # Make `docpilot` importable when the host runs this file from app/.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+
 API = "http://127.0.0.1:8000"
 try:
     for _k, _v in st.secrets.items():  # copy the host's secrets into the environment
