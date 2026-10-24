@@ -14,7 +14,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 API = "http://127.0.0.1:8000"
 try:
-    len(st.secrets)  # touching it loads the host's secrets into environment variables
+    for _k, _v in st.secrets.items():  # copy the host's secrets into the environment
+        if isinstance(_v, (str, int, float)):
+            os.environ.setdefault(_k, str(_v))
 except Exception:
     pass  # no secrets file locally: fine
 INPROC = os.getenv("DOCPILOT_INPROCESS") == "1"  # call the pipeline directly, no API server
