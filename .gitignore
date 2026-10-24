@@ -22,3 +22,5 @@ Readme.bak
 
 logs/
 *.bak*
+
+.streamlit/secrets.toml
