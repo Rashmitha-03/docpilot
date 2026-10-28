@@ -65,8 +65,7 @@ Answer level (30 dev questions, one pass):
 
 ## Limitations
 
-- Generation takes about 35 s per answer on CPU (p50 on dev). Measured: prompt reading is about 34 to 43 tokens/s and writing about 8 to 10 tokens/s, plus about 12 s model load; accepted as a CPU limitation.
-- The 3B model sometimes answers from outside the retrieved passages or produces invalid code; formatting slips ("declaringthe", glued citations).
+- Generation takes about 35 s per answer on CPU (p50 on dev). Measured: prompt reading is about 34 to 43 tokens/s and writing about 8 to 10 tokens/s, plus about 12 s model load; accepted as a CPU limitation. This measurement is only for ollama model, while using Groq-free tier api key it takes 2-5sec per ans.
 - The refusal threshold is untuned; near-coverage questions can be wrongly refused or wrongly answered.
 - Rewrite quality is checked on a few hand-picked cases, not a labelled set. Chained follow-ups can resolve to the older topic.
 - Output varies slightly between runs even at temperature 0; this variation is not measured.
