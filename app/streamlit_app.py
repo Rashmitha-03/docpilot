@@ -135,7 +135,9 @@ def show_footer(sources, meta, text):
         return
     m = meta.get("mode", "naive")
     parts = [f'<span class="dp-badge {m}">{m}</span>']
-    if meta.get("refused_by") == "gate" or text.strip() == REFUSAL:
+    if meta.get("refused_by") == "safety":
+        parts.append('<span class="dp-badge refused">blocked</span>')
+    elif meta.get("refused_by") == "gate" or text.strip() == REFUSAL:
         parts.append('<span class="dp-badge refused">refused</span>')
     if meta.get("seconds") is not None:
         parts.append(f'<span class="dp-badge">{meta["seconds"]} s</span>')
@@ -183,7 +185,13 @@ if INPROC:
 
     def agent_ask(question):
         from docpilot.agent.graph import graph
+        from docpilot.safety import pre_check
 
+        pc = pre_check(question)
+        if pc:
+            return {"answer": pc["reply"],
+                    "refused_by": "safety" if pc["kind"] == "blocked" else None,
+                    "sources": [], "verify": [], "standalone": None}
         try:
             res = graph.invoke({"question": question})
         except Exception as e:
@@ -209,7 +217,13 @@ if INPROC:
 
     def agent_ask(question):
         from docpilot.agent.graph import graph
+        from docpilot.safety import pre_check
 
+        pc = pre_check(question)
+        if pc:
+            return {"answer": pc["reply"],
+                    "refused_by": "safety" if pc["kind"] == "blocked" else None,
+                    "sources": [], "verify": [], "standalone": None}
         try:
             res = graph.invoke({"question": question})
         except Exception as e:
