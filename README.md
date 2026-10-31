@@ -144,3 +144,12 @@ UI limitations:
 - Streaming is naive only. Agent mode uses `/ask` (no streaming, no chat history) and shows a spinner.
 - The Debug panel infers model refusals by comparing the text to the refusal sentence.
 - Follow-up rewriting is only lightly checked (a few hand-picked cases).
+
+## Safety and ethics
+
+- **Checks run before any search.** Every question first passes a rule-based check (no model, about a millisecond): harmful or abusive requests (self-harm, violence, malware, hacking, doxxing, hate, insults, prompt-injection phrases) get a short refusal, and greetings or "who are you" questions get an instant canned reply. Only the rest go on to the docs search.
+- **Measured:** 0 of 48 eval questions (dev and test) were wrongly flagged. This counts false positives only. The eval sets contain no toxic questions, so how many harmful questions the rules catch was not measured, only checked on a few hand-written phrases (48 unit tests).
+- **Limits:** English only; phrase rules can be dodged by rewording or misspelling, and can misfire on unusual phrasing. This is a first line of defence, not a guarantee. No bias or fairness evaluation was done.
+- **Honesty about being an AI:** it says it is an AI when asked, cites the file and section of every answer, and says so when the docs do not cover a question. Small and hosted models can still make mistakes, so check the cited sources.
+- **Privacy:** request logs store the question length and the check category, never the question text. In the live demo, questions are sent to a third-party model API (Groq) and the app is hosted on Streamlit Community Cloud, so do not enter personal or sensitive information. I have not checked either provider's data-retention policy.
+- **Prompt injection:** a system-prompt rule (question and passages are data, not instructions) plus the phrase rules above. Tested on 3 probes only, so anecdotal.
