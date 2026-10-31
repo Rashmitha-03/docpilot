@@ -2,7 +2,7 @@
 
 A citation-first Q&A assistant over the FastAPI documentation. It answers with references to the exact doc file and section, and refuses when the docs don't cover the question. Everything runs locally and for free (CPU only, Ollama).
 
-> **Status: working end to end (local with Ollama, plus a hosted demo).** Retrieval (vector, BM25, hybrid), grounded generation with citations and refusal, answer-level evaluation, follow-up handling, an agentic layer, a FastAPI service (streaming), a Streamlit UI with a naive/agent switch, an in-memory answer cache, 22 tests and CI are done. Dev results are optimistic (tuned on dev); the held-out test set was run once (see "Test results"). The agentic layer showed no demonstrated benefit on the test set. A demo is deployed on Streamlit Community Cloud (see "Live demo" below).
+> **Status: working end to end (local with Ollama, plus a hosted demo).** Retrieval (vector, BM25, hybrid), grounded generation with citations and refusal, answer-level evaluation, follow-up handling, an agentic layer, a FastAPI service (streaming), a Streamlit UI with a naive/agent switch, an in-memory answer cache, 22 tests and CI are done. Dev results are optimistic (tuned on dev); the held-out test set was run once (see "Test results"). The agentic layer showed no demonstrated benefit on the test set. A demo is deployed on Streamlit Community Cloud (see "Live demo" below). 
 
 **Live demo:** https://docpilotrag.streamlit.app/
 
@@ -65,11 +65,9 @@ Answer level (30 dev questions, one pass):
 
 ## Limitations
 
-- Generation takes about 35 s per answer on CPU (p50 on dev). Measured: prompt reading is about 34 to 43 tokens/s and writing about 8 to 10 tokens/s, plus about 12 s model load; accepted as a CPU limitation.
-- The 3B model sometimes answers from outside the retrieved passages or produces invalid code; formatting slips ("declaringthe", glued citations).
+- Generation takes about 35 s per answer on CPU (p50 on dev). Measured: prompt reading is about 34 to 43 tokens/s and writing about 8 to 10 tokens/s, plus about 12 s model load; accepted as a CPU limitation. This measurement is only for ollama model, while using Groq-free tier api key it takes 2-5sec per ans.
 - The refusal threshold is untuned; near-coverage questions can be wrongly refused or wrongly answered.
 - Rewrite quality is checked on a few hand-picked cases, not a labelled set. Chained follow-ups can resolve to the older topic.
-- Output varies slightly between runs even at temperature 0; this variation is not measured.
 - Small eval set: treat small metric differences as noise.
 
 ## Run it
@@ -134,6 +132,7 @@ Streamlit chat app. It calls the API, so start the server first (see API), then 
 - Answers stream token by token, with a collapsible Sources panel (file and section) under each answer.
 - Follow-up questions are rewritten into standalone questions using the chat history.
 - A Debug panel shows the rewritten question and whether the gate, the model, or neither refused.
+- Citations are showed in UI, this helps in understanding the source from which answer comes from.
 
 ## Prompt-injection check
 
