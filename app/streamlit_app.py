@@ -12,6 +12,7 @@ from pathlib import Path
 # Make `docpilot` importable when the host runs this file from app/.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from docpilot.safety import pre_check
 
 API = "http://127.0.0.1:8000"
 try:
@@ -263,8 +264,16 @@ if q:
         box = st.empty()
         text, sources, meta = "", [], {}
         t0 = time.perf_counter()
+        box.markdown("*Checking your question...*")
+        pc = pre_check(q)
         try:
-            if mode == "agent":
+            if pc:
+                text = pc["reply"]
+                meta = {"mode": mode, "standalone": None, "pre": pc["category"],
+                        "refused_by": "safety" if pc["kind"] == "blocked" else None}
+                box.markdown(text)
+            elif mode == "agent":
+                box.markdown("*Searching the docs...*")
                 with st.spinner("Agent is working (no streaming, can take a minute)..."):
                     res = agent_ask(q)
                 text, sources = res["answer"], res["sources"]
