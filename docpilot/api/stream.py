@@ -20,6 +20,13 @@ def _sse(event, data):
 def stream_answer(question, history=None, k=5, threshold=CE_THRESHOLD):
     """Naive path as a generator of SSE strings. Same steps as answer(),
     plus a canned reply for greetings and clear errors if Ollama fails."""
+    pc = pre_check(question)
+    if pc:
+        yield _sse("meta", {"refused_by": "safety" if pc["kind"] == "blocked" else None,
+                            "sources": [], "standalone": question, "pre": pc["category"]})
+        yield _sse("token", pc["reply"])
+        yield _sse("done", {})
+        return
     if route(question) == "chitchat":
         yield _sse("meta", {"refused_by": None, "sources": [], "standalone": question})
         yield _sse("token", CHITCHAT_REPLY)
