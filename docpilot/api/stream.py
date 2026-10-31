@@ -3,6 +3,7 @@ import json
 import httpx
 from docpilot.generation import llm
 from docpilot.agent.nodes import route
+from docpilot.safety import pre_check
 from docpilot.generation.answer import CE_THRESHOLD, MODEL
 from docpilot.generation.prompts import REFUSAL, build_messages
 from docpilot.generation.rewrite import rewrite_question
