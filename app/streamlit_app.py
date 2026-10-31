@@ -121,7 +121,9 @@ def show_debug(meta, text):
             if meta.get("mode") == "agent":
                 st.write("Verify flags:", meta.get("verify") or "none")
             st.write("Standalone question:", meta.get("standalone"))
-            if meta.get("refused_by") == "gate":
+            if meta.get("refused_by") == "safety":
+                st.write("Blocked by: safety filter (rule-based, before any search)")
+            elif meta.get("refused_by") == "gate":
                 st.write("Refused by: gate (retrieval score below threshold)")
             elif text.strip() == REFUSAL:
                 st.write("Refused by: model")
