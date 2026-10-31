@@ -27,3 +27,6 @@
 {"ts": "2026-10-24T20:38:46", "endpoint": "/ask/stream", "mode": "naive", "q_len": 36, "seconds": 2.09}
 {"ts": "2026-10-24T20:39:02", "endpoint": "/ask", "mode": "agent", "q_len": 36, "refused_by": null, "n_sources": 5, "verify": [], "cache_hit": false, "seconds": 3.88}
 {"ts": "2026-10-24T20:39:19", "endpoint": "/ask", "mode": "agent", "q_len": 31, "refused_by": "gate", "n_sources": 0, "verify": [], "cache_hit": false, "seconds": 0.57}
+{"ts": "2026-10-31T15:17:55", "endpoint": "/ask", "mode": "naive", "q_len": 2, "refused_by": null, "n_sources": 0, "verify": [], "cache_hit": false, "pre_check": "greeting", "seconds": 0.0004}
+{"ts": "2026-10-31T15:17:55", "endpoint": "/ask", "mode": "naive", "q_len": 12, "refused_by": null, "n_sources": 0, "verify": [], "cache_hit": false, "pre_check": "how_are_you", "seconds": 0.0001}
+{"ts": "2026-10-31T15:17:55", "endpoint": "/ask", "mode": "naive", "q_len": 21, "refused_by": "safety", "n_sources": 0, "verify": [], "cache_hit": false, "pre_check": "violence", "seconds": 0.0001}
