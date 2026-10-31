@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from docpilot.api.schemas import AskRequest, AskResponse
 from docpilot.api.stream import OLLAMA_DOWN
+from docpilot.safety import pre_check
 from docpilot.utils.cache import LRUCache, make_key
 from docpilot.utils.logging import log_request
 app = FastAPI(title="DocPilot")
@@ -41,6 +42,14 @@ def _run_model(req):
 @app.post("/ask", response_model=AskResponse)
 def ask(req: AskRequest):
     t = time.perf_counter()
+    pc = pre_check(req.question)
+    if pc:
+        out = AskResponse(answer=pc["reply"],
+                          refused_by="safety" if pc["kind"] == "blocked" else None)
+        log_request(endpoint="/ask", mode=req.mode, q_len=len(req.question),
+                    refused_by=out.refused_by, n_sources=0, verify=[], cache_hit=False,
+                    pre_check=pc["category"], seconds=round(time.perf_counter() - t, 4))
+        return out
     key = make_key(req.question, req.mode) if not req.history else None
     if key:
         cached = _cache.get(key)
