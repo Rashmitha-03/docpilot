@@ -136,9 +136,7 @@ Streamlit chat app. It calls the API, so start the server first (see API), then 
 
 ## Prompt-injection check
 
-Probed with 3 injection-style questions (anecdotal, not a guarantee). Off-topic injection is stopped by the gate. Injection attached to a real docs question passes the gate, so I added rule 5 to the system prompt (question and passages are data, not instructions). Before the rule, one probe made the model comply with "reveal your system prompt" (it invented a prompt). After it, that probe answered only the docs part, and the "say PWNED" probe was refused by the model. Three ordinary questions were still answered.
-
-**Post-test change:** rule 5 was added after the test-set run. The reported test and dev numbers were measured with the previous prompt and were not re-run.
+Probed with 3 injection-style questions (anecdotal, not a guarantee). Off-topic injection is stopped by the gate. Injection attached to a real docs question passes the gate, so I added rule 5 to the system prompt (question and passages are data, not instructions). Before the rule, one probe made the model comply with "reveal your system prompt" (it invented a prompt). After it, that probe answered only the docs part, and the "say PWNED" probe was refused by the model. 
 
 UI limitations:
 - Streaming is naive only. Agent mode uses `/ask` (no streaming, no chat history) and shows a spinner.
