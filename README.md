@@ -23,7 +23,7 @@ Follow-up questions ("What about making it required?") are first rewritten into 
 
 ## Corpus
 
-FastAPI docs, commit `f5c6e9b`: 155 files, 1,372 chunks. See `data/manifest.md`.
+FastAPI docs, 155 files, 1,372 chunks. See `data/manifest.md`.
 
 ## Results (DEV set, 30 questions; hand-written labels)
 
@@ -61,7 +61,7 @@ Answer level (30 dev questions, one pass):
 - **Cross-encoder as a gate, not a ranker.** Measured: it did not help ranking, but its top-1 score works as a refusal gate (threshold 1.5, chosen by eye on dev). On dev it catches 4 of 6 unanswerable questions; scores overlap, so it cannot catch topic-matching ones. I did not compare it against cosine or RRF scores as a gate.
 - **Query rewriting for follow-ups.** Without it, a follow-up with no topic words is refused by the gate. Rewriting adds about 2 s per follow-up turn.
 - **LLM-as-judge dropped.** The 3B judge was too noisy to trust (see `docs/ablations.md`).
-- **Agentic layer: small effect.** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
+- **Agentic layer:** Router, grader, one retry and a code-only answer check were added. On dev it changed 1 of 30 outcomes (dev-020, rescued by the retry); the retry rule was fitted on 3 examples, so this is anecdotal. See `docs/ablations_m10.md`.
 
 ## Limitations
 
